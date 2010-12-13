@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+        >
+    <RelativeLayout android:layout_height="wrap_content" android:layout_width="fill_parent">
+        <Button android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="(+)"
+                android:id="@+id/createLocationButton"/>
+        <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/createLocationButton"
+                android:hint="Search Location"
+                android:id="@+id/searchLocation"
+                />
+    </RelativeLayout>
+    <ListView android:layout_height="fill_parent"
+              android:layout_width="fill_parent"
+              android:id="@+id/locationsList"/>
+</LinearLayout>
