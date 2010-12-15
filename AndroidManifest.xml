@@ -11,13 +11,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditEvent" android:label="New Event"/>
+        <activity android:name=".EditEvent" android:label="New Event">
+        <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
         <activity android:name=".ViewEvent" android:theme="@android:style/Theme.NoTitleBar"/>
         <activity android:name=".LocationFromMap" android:label="Choose Location"/>
         <activity android:name=".Locations" android:label="Choose Location"/>
         <activity android:name=".About" android:label="About Proxime"/>
         <activity android:name=".AddressList" android:label="Addresses"/>
         <uses-library android:name="com.google.android.maps"/>
+        <service android:name=".LocationTracker" android:label="Location Tracker"/>
     </application>
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>

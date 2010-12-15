@@ -3,51 +3,72 @@ package com.proxime;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
+import android.widget.*;
+import com.proxime.repositories.EventsRepository;
+
+import java.util.List;
 
 public class Events extends Activity {
+    private EventsRepository eventsRepository;
+    private static final int NEW_EVENT = 1;
     private ListView eventsView;
 
-    /**
-     * Called when the activity is first created.
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        eventsView = (ListView) findViewById(R.id.eventsList);
-        eventsView.setAdapter(new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, new String[]{"Reached Office", "Submit Broadband Bill", "Pay Maintenance" }));
-        eventsView.setTextFilterEnabled(true);
-        HookUpEvents();
-
+        setDependencies();
+        loadEvents();
+        hookUpListeners();
+        createTrackerService();
     }
 
-    private void HookUpEvents() {
+    private void createTrackerService() {
+    }
+
+    private void setDependencies() {
+        eventsRepository = new EventsRepository(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode != RESULT_OK) return;
+        if(requestCode == NEW_EVENT) {
+            CustomListAdapter<Event> adapter = (CustomListAdapter<Event>) eventsView.getAdapter();
+            Event event = (Event) data.getExtras().get("event");
+            adapter.add(event);
+        }
+    }
+
+    private void loadEvents() {
+        List<Event> events = eventsRepository.loadAll();
+        eventsView = (ListView) findViewById(R.id.eventsList);
+        eventsView.setTextFilterEnabled(true);
+        eventsView.setAdapter(new CustomListAdapter<Event>(this,events));
+    }
+
+    private void hookUpListeners() {
         Button createButton = (Button) findViewById(R.id.createButton);
         createButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                showDialog(0);
+//                showDialog(0);
+                startActivityForResult(new Intent(getApplicationContext(), EditEvent.class), NEW_EVENT);
+
             }
         });
 
-        eventsView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        eventsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Object itemAtPosition = adapterView.getItemAtPosition(i);
-                Intent intent = new Intent(getApplicationContext(), ViewEvent.class);
-                intent.putExtra("name", itemAtPosition.toString());
-                startActivity(intent);
+                long id = ((CustomListAdapter.ViewHolder) view.getTag()).id;
+                startActivity(new Intent(getApplicationContext(), ViewEvent.class).putExtra("event_id",id));
             }
         });
     }
@@ -74,7 +95,8 @@ public class Events extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Class activityClass = item.getItemId() == R.id.goto_locations ? Locations.class : About.class;
-        startActivity(new Intent(getApplicationContext(),activityClass));
+        Intent intent = new Intent(getApplicationContext(), activityClass);
+        startActivity(intent);
         return true;
     }
 }

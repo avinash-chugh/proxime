@@ -1,41 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical">
-    <RelativeLayout android:layout_height="wrap_content"
-                    android:layout_width="fill_parent">
-        <TextView
-                android:id="@+id/nameLabel"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="Name: "/>
-        <EditText
-                android:id="@+id/searchText"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical">
+    <ScrollView
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_weight="1">
+        <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/nameLabel"
-                />
-    </RelativeLayout>
-    <TextView android:id="@+id/contact"
-              android:layout_height="wrap_content"
-              android:layout_width="fill_parent"
-              android:text="Tap here to set contact"
-              style="@style/Header"
-            />
-    <TextView android:id="@+id/location"
-              android:layout_height="wrap_content"
-              android:layout_width="fill_parent"
-              android:text="Tap here to set location"
-              style="@style/Header"
-            />
-    <TextView
-              android:layout_height="wrap_content"
-              android:layout_width="fill_parent"
-              android:text="Message"
-            />
-    <EditText
+                android:orientation="vertical">
+            <RelativeLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent">
+                <TextView
+                        android:id="@+id/edit_event_name_label"
+                        android:text="@string/edit_event_name"
+                        style="@style/header"/>
+                <EditText
+                        android:id="@+id/edit_event_name"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/edit_event_name_label"
+                        />
+            </RelativeLayout>
+            <View style="@style/horizontal_line"/>
+            <RelativeLayout android:layout_height="wrap_content" android:layout_width="fill_parent">
+                <TextView
+                        android:id="@+id/edit_event_contacts_title"
+                        android:text="@string/contacts_title"
+                        style="@style/header"/>
+                <Button
+                        android:id="@+id/edit_event_add_contact"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:background="@drawable/create_button"
+                        android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+            <TextView
+                style="@style/header"
+                android:id="@+id/edit_event_contact"/>
+            <!--<ListView-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/edit_event_contacts_list">-->
+            <!--</ListView>-->
+
+            <View style="@style/horizontal_line"/>
+
+            <RelativeLayout android:layout_height="wrap_content" android:layout_width="fill_parent">
+                <TextView
+                        android:text="@string/locations_title"
+                        style="@style/header"/>
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/edit_event_add_location"
+                        android:background="@drawable/create_button"
+                        android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+            <!--<ListView-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/edit_event_locations_list">-->
+            <!--</ListView>-->
+            <TextView
+                style="@style/header"
+                android:id="@+id/edit_event_location"/>
+
+            <View style="@style/horizontal_line"/>
+
+            <TextView
+                    android:text="@string/message_title"
+                    style="@style/header"/>
+            <EditText
+                    android:id="@+id/edit_event_message"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:singleLine="false" android:lines="5"
+                    android:layout_marginLeft="10dip" android:layout_marginRight="10dip"
+                    />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <LinearLayout
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
-            />
-
+            android:orientation="horizontal">
+        <Button
+                android:id="@+id/edit_event_save"
+                android:text="@string/edit_event_save"
+                style="@style/button_row"/>
+        <Button
+                android:id="@+id/edit_event_cancel"
+                android:text="@string/edit_event_cancel"
+                android:layout_toRightOf="@id/edit_event_save"
+                style="@style/button_row"/>
+    </LinearLayout>
 </LinearLayout>
