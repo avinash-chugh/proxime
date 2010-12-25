@@ -8,34 +8,34 @@ import android.net.Uri;
 import com.proxime.Contact;
 import com.proxime.ContactRepository;
 import com.proxime.Event;
+import com.proxime.Location;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventsRepository  implements ColumnNames
+public class EventRepository implements ColumnNames
 {
 
-    private Activity activity;
     private CustomDBHelper dbHelper;
     private ContactRepository contactRepository;
+    private LocationRepository locationRepository;
 
-    public EventsRepository(Activity activity) {
-        this.activity = activity;
+    public EventRepository(Activity activity) {
         dbHelper = new CustomDBHelper(activity.getApplicationContext());
         contactRepository = new ContactRepository(activity);
+        locationRepository = new LocationRepository(activity);
     }
 
-    public long save(Event event) {
+    public void save(Event event) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(NAME, event.getName());
         values.put(MESSAGE, event.getMessage());
-//        values.put(LOCATION_ID, event.getLocation().getId());
-        values.put(CONTACT_ID, event.getContact().getUri().toString());
-
+        if(event.hasLocation())values.put(LOCATION_ID, event.getLocation().getId());
+        if(event.hasContact()) values.put(CONTACT_ID, event.getContact().getUri().toString());
         long id = db.insertOrThrow(CustomDBHelper.EVENTS_TABLE, null, values);
         db.close();
-        return id;
+        event.setId(id);
     }
 
     public List<Event> loadAll() {
@@ -57,7 +57,7 @@ public class EventsRepository  implements ColumnNames
     public Event load(long id) {
         Event result = new Event();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String[] columns = {NAME, MESSAGE, CONTACT_ID};
+        String[] columns = {NAME, MESSAGE, CONTACT_ID, LOCATION_ID};
         String selection = ID + " = ?";
         String[] selectionArgs = {new Long(id).toString()};
         Cursor cursor = db.query(CustomDBHelper.EVENTS_TABLE, columns, selection, selectionArgs, null, null, null, null);
@@ -67,6 +67,8 @@ public class EventsRepository  implements ColumnNames
         String contactUri = cursor.getString(cursor.getColumnIndexOrThrow(CONTACT_ID));
         Contact contact = contactRepository.getContact(Uri.parse(contactUri));
         result.setContact(contact);
+        Location location = locationRepository.load(cursor.getLong(cursor.getColumnIndexOrThrow(LOCATION_ID)));
+        result.setLocation(location);
         cursor.close();
         db.close();
         return result;

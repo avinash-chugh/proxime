@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical">
+    <ScrollView
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_weight="1">
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <RelativeLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent">
+                <TextView
+                        android:id="@+id/add_location_name_label"
+                        android:text="@string/name"
+                        android:layout_width="wrap_content"
+                        style="@style/caption"/>
+                <EditText
+                        android:id="@+id/add_location_name"
+                        style="@style/textbox"
+                        android:layout_width="fill_parent"
+                        android:layout_toRightOf="@id/add_location_name_label"
+                        />
+            </RelativeLayout>
+            <RelativeLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent">
+                <TextView
+                        android:id="@+id/add_location_span_label"
+                        android:text="@string/span"
+                        android:layout_width="wrap_content"
+                        style="@style/caption"/>
+                <EditText
+                        android:id="@+id/add_location_span"
+                        style="@style/textbox"
+                        android:layout_width="fill_parent"
+                        android:layout_toRightOf="@id/add_location_span_label"
+                        android:numeric="integer"
+                        />
+            </RelativeLayout>
+            <EditText
+                    android:id="@+id/add_location_debug"
+                    style="@style/textbox"
+                    android:layout_width="fill_parent"
+                    android:text="yes"
+                    />
+            <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+
+                <RadioButton android:id="@+id/add_location_use_current"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="Use current location"/>
+
+                <RadioButton android:id="@+id/add_location_use_map"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="Use map"/>
+
+            </RadioGroup>
+        </LinearLayout>
+    </ScrollView>
+
+
+    <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:orientation="horizontal">
+        <Button
+                android:id="@+id/add_location_save"
+                android:text="@string/save"
+                style="@style/button_row"/>
+        <Button
+                android:id="@+id/add_location_cancel"
+                android:text="@string/cancel"
+                android:layout_toRightOf="@id/add_location_save"
+                style="@style/button_row"/>
+    </LinearLayout>
+</LinearLayout>

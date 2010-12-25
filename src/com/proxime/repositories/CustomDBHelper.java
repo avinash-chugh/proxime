@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class CustomDBHelper extends SQLiteOpenHelper implements ColumnNames {
 
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "events.db";
     public static final String LOCATIONS_TABLE = "locations";
 
@@ -14,9 +14,9 @@ public class CustomDBHelper extends SQLiteOpenHelper implements ColumnNames {
             "CREATE TABLE " + LOCATIONS_TABLE + " ("
             + ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "
             + NAME + " TEXT NOT NULL, "
-            + "latitude INTEGER NOT NULL, "
-            + "longitude INTEGER NOT NULL, "
-            + "span INTEGER NOT NULL "
+            + LATITUDE +  " FLOAT NOT NULL, "
+            + LONGITUDE + " FLOAT NOT NULL, "
+            + SPAN  + " INTEGER NOT NULL "
             + ")";
 
     public static final String EVENTS_TABLE = "events";

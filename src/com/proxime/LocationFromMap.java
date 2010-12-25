@@ -21,6 +21,7 @@ public class LocationFromMap extends MapActivity
             String formattedAddress ="";
             if (motionEvent.getAction()==1)
             {
+
                 GeoPoint point = mapView.getProjection().fromPixels(
                         (int)motionEvent.getX(),(int)motionEvent.getY());
 

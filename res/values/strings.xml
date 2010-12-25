@@ -3,10 +3,12 @@
     <string name="app_name">Events</string>
     <string name="contacts_title">Contact</string>
     <string name="edit_event_add_contact">Add</string>
-    <string name="edit_event_name">Name</string>
-    <string name="edit_event_save">Save</string>
-    <string name="edit_event_cancel">Cancel</string>
+    <string name="name">Name</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
     <string name="locations_title">Location</string>
     <string name="edit_event_add_location">Add</string>
     <string name="message_title">Message</string>
+    <string name="location_name">Name</string>
+    <string name="span">Span (in meters)</string>
 </resources>

@@ -10,12 +10,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
-import com.proxime.repositories.EventsRepository;
+import com.proxime.repositories.EventRepository;
 
 import java.util.List;
 
 public class Events extends Activity {
-    private EventsRepository eventsRepository;
+    private EventRepository eventRepository;
     private static final int NEW_EVENT = 1;
     private ListView eventsView;
 
@@ -34,7 +34,7 @@ public class Events extends Activity {
     }
 
     private void setDependencies() {
-        eventsRepository = new EventsRepository(this);
+        eventRepository = new EventRepository(this);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class Events extends Activity {
     }
 
     private void loadEvents() {
-        List<Event> events = eventsRepository.loadAll();
+        List<Event> events = eventRepository.loadAll();
         eventsView = (ListView) findViewById(R.id.eventsList);
         eventsView.setTextFilterEnabled(true);
         eventsView.setAdapter(new CustomListAdapter<Event>(this,events));

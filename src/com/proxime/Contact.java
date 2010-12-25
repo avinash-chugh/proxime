@@ -7,6 +7,7 @@ import android.os.Parcelable;
 public class Contact implements Parcelable {
     private String name;
     private Uri uri;
+    private String phoneNumber;
 
     public Contact(String name, Uri uri) {
         this.name = name;
@@ -41,4 +42,12 @@ public class Contact implements Parcelable {
             return new Contact[size];
         }
     };
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 }

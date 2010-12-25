@@ -5,9 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-import com.proxime.repositories.EventsRepository;
+import com.proxime.repositories.EventRepository;
 
 public class EditEvent extends Activity {
 
@@ -15,7 +14,7 @@ public class EditEvent extends Activity {
     private static final int GET_LOCATION = 1;
 
     private ContactRepository contactRepository;
-    private EventsRepository eventsRepository;
+    private EventRepository eventRepository;
     private Event event = new Event();
 
     public void onCreate(Bundle savedInstanceState) {
@@ -25,30 +24,28 @@ public class EditEvent extends Activity {
         hookUpEvents();
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK) return;
         switch (requestCode) {
             case PICK_CONTACT:
-                if (resultCode == Activity.RESULT_OK) {
-                    Contact contact = contactRepository.getContact(data.getData());
-                    event.setContact(contact);
-                }
+                Contact contact = contactRepository.getContact(data.getData());
+                event.setContact(contact);
                 break;
             case GET_LOCATION:
-                if (resultCode == Activity.RESULT_OK) {
-                    Bundle extras = data.getExtras();
-                    Location location = (Location) extras.get("location");
-                    event.setLocation(location);
-                }
+                Bundle extras = data.getExtras();
+                Location location = (Location) extras.get("location");
+                event.setLocation(location);
                 break;
         }
-        display();
+        updateDisplay();
     }
 
     private void setDependencies() {
         contactRepository = new ContactRepository(this);
-        eventsRepository = new EventsRepository(this);
+        eventRepository = new EventRepository(this);
     }
 
 
@@ -76,10 +73,10 @@ public class EditEvent extends Activity {
 
         findViewById(R.id.edit_event_save).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                event.setName(getName());
-                event.setMessage(getMessage());
-                long id = eventsRepository.save(event);
-                event.setId(id);
+                event.setName(getViewText(R.id.edit_event_name));
+                event.setMessage(getViewText(R.id.edit_event_message));
+                eventRepository.save(event);
+                startService(new Intent(EditEvent.this, LocationTracker.class).putExtra("event", event).putExtra("action", "add"));
                 setResult(RESULT_OK, new Intent().putExtra("event", event));
                 finish();
             }
@@ -87,16 +84,14 @@ public class EditEvent extends Activity {
 
     }
 
-    private String getMessage() {
-        return ((TextView) findViewById(R.id.edit_event_message)).getText().toString();
+    private void updateDisplay() {
+        if (event.getLocation() != null)
+            ((TextView) findViewById(R.id.edit_event_location)).setText(event.getLocation().getName());
+        if (event.getContact() != null)
+            ((TextView) findViewById(R.id.edit_event_contact)).setText(event.getContact().getName());
     }
 
-    private void display() {
-        if(event.getLocation() != null) ((TextView) findViewById(R.id.edit_event_location)).setText(event.getLocation().getName());
-        if(event.getContact() != null)((TextView) findViewById(R.id.edit_event_contact)).setText(event.getContact().getName());
-    }
-
-    public String getName() {
-        return ((EditText) findViewById(R.id.edit_event_name)).getText().toString();
+    public String getViewText(int resourceId) {
+        return ((TextView) findViewById(resourceId)).getText().toString();
     }
 }

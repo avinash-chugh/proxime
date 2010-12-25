@@ -17,11 +17,12 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".ViewEvent" android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".ViewEvent" />
         <activity android:name=".LocationFromMap" android:label="Choose Location"/>
         <activity android:name=".Locations" android:label="Choose Location"/>
         <activity android:name=".About" android:label="About Proxime"/>
         <activity android:name=".AddressList" android:label="Addresses"/>
+        <activity android:name=".AddLocation" android:label="Add Location"/>
         <uses-library android:name="com.google.android.maps"/>
         <service android:name=".LocationTracker" android:label="Location Tracker"/>
     </application>
