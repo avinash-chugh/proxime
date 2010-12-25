@@ -1,6 +1,9 @@
-1) dbcleanup and ORM for Android
+1) dbcleanup and ORM for Android - avinash
 2) proper use of intents
 3) externalize string
-4) tests - dependency injection
-5) UI layout and screen flow
-6) Icons (low priority)
+4) tests - dependency injection - avinash
+5) UI layout and screen flow - pradeep
+6) Icons (low priority) 
+7) get locations to work - vineeth
+8) getting service to work - pradeep
+9) getting notify self to work - vineeth
