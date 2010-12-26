@@ -44,7 +44,7 @@ public class EditEvent extends Activity {
     }
 
     private void setDependencies() {
-        contactRepository = new ContactRepository(this);
+        contactRepository = new ContactRepository(this.getContentResolver());
         eventRepository = new EventRepository(this);
     }
 

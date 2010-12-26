@@ -1,7 +1,7 @@
 package com.proxime.repositories;
 
-import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -20,10 +20,11 @@ public class EventRepository implements ColumnNames
     private ContactRepository contactRepository;
     private LocationRepository locationRepository;
 
-    public EventRepository(Activity activity) {
-        dbHelper = new CustomDBHelper(activity.getApplicationContext());
-        contactRepository = new ContactRepository(activity);
-        locationRepository = new LocationRepository(activity);
+    public EventRepository(Context context) {
+
+        dbHelper = new CustomDBHelper(context);
+        contactRepository = new ContactRepository(context.getContentResolver());
+        locationRepository = new LocationRepository(context);
     }
 
     public void save(Event event) {
