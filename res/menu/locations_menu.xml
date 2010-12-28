@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/view_locations"
-          android:title="@string/menu_locations"
-          android:icon="@android:drawable/ic_menu_myplaces"/>
+    <item android:id="@+id/view_events"
+          android:title="@string/menu_events"
+          android:icon="@drawable/ic_menu_notifications"/>
 
-    <item android:id="@+id/add_event"
-          android:title="@string/menu_add_event"
+    <item android:id="@+id/add_location"
+          android:title="@string/menu_add_location"
           android:icon="@android:drawable/ic_menu_add"/>
 
     <item android:id="@+id/about_proxime"

@@ -1,8 +1,11 @@
 package com.proxime.activities;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -15,6 +18,8 @@ import com.proxime.repositories.LocationRepository;
 import java.util.List;
 
 public class Locations extends Activity {
+    private static final int NEW_LOCATION = 1;
+    private static final int ABOUT_DIALOG = 1;
     private ListView locationsView;
     private LocationRepository locationRepository;
 
@@ -41,7 +46,7 @@ public class Locations extends Activity {
         Button createButton = (Button) findViewById(R.id.createLocationButton);
         createButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                startActivityForResult(new Intent(getApplicationContext(), EditLocation.class), EditLocation.NEW_LOCATION);
+                newLocation();
             }
         });
 
@@ -59,11 +64,51 @@ public class Locations extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode != RESULT_OK) return;
         switch (requestCode){
-            case EditLocation.NEW_LOCATION :
+            case NEW_LOCATION :
                 Location location = (Location) data.getExtras().get("location");
                 CustomListAdapter<Location> adapter = (CustomListAdapter<Location>) locationsView.getAdapter();
                 adapter.add(location);
                 break;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.locations_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_location: {
+                newLocation();
+                break;
+            }
+            case R.id.view_events: {
+                Intent intent = new Intent(this, Events.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.about_proxime: {
+                showDialog(ABOUT_DIALOG);
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id, Bundle args) {
+        switch (id) {
+            case ABOUT_DIALOG:
+                return new AboutDialog(this).Show();
+        }
+        return super.onCreateDialog(id, args);
+    }
+
+    private void newLocation() {
+        Intent intent = new Intent(this, EditLocation.class);
+        startActivityForResult(intent, NEW_LOCATION);
     }
 }

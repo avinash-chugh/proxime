@@ -16,7 +16,6 @@ import com.proxime.repositories.LocationRepository;
 
 
 public class EditLocation extends Activity {
-    public final static int NEW_LOCATION = 1;
     private boolean useMap;
     private Location location;
     private LocationRepository locationRepository;

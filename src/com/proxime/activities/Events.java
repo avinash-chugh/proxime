@@ -9,17 +9,20 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
-import com.proxime.adapters.CustomListAdapter;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
 import com.proxime.R;
+import com.proxime.adapters.CustomListAdapter;
 import com.proxime.entities.Event;
 import com.proxime.repositories.EventRepository;
 
 import java.util.List;
 
 public class Events extends Activity {
-    private EventRepository eventRepository;
     private static final int NEW_EVENT = 1;
+    private static final int ABOUT_DIALOG = 1;
+    private EventRepository eventRepository;
     private ListView eventsView;
 
     @Override
@@ -55,23 +58,21 @@ public class Events extends Activity {
         List<Event> events = eventRepository.loadAll();
         eventsView = (ListView) findViewById(R.id.eventsList);
         eventsView.setTextFilterEnabled(true);
-        eventsView.setAdapter(new CustomListAdapter<Event>(this,events));
+        eventsView.setAdapter(new CustomListAdapter<Event>(this, events));
     }
 
     private void hookUpListeners() {
         Button createButton = (Button) findViewById(R.id.createButton);
         createButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-//                showDialog(0);
-                startActivityForResult(new Intent(getApplicationContext(), EditEvent.class), NEW_EVENT);
-
+                newEvent();
             }
         });
 
         eventsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 long id = ((CustomListAdapter.ViewHolder) view.getTag()).id;
-                startActivity(new Intent(getApplicationContext(), ViewEvent.class).putExtra("event_id",id));
+                startActivity(new Intent(getApplicationContext(), ViewEvent.class).putExtra("event_id", id));
             }
         });
     }
@@ -90,16 +91,44 @@ public class Events extends Activity {
         return builder.create();
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.events_menu, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Class activityClass = item.getItemId() == R.id.goto_locations ? Locations.class : About.class;
-        Intent intent = new Intent(getApplicationContext(), activityClass);
-        startActivity(intent);
-        return true;
+        switch (item.getItemId()) {
+            case R.id.add_event: {
+                newEvent();
+                break;
+            }
+            case R.id.view_locations: {
+                Intent intent = new Intent(this, Locations.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.about_proxime: {
+                showDialog(ABOUT_DIALOG);
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id, Bundle args) {
+        switch (id) {
+            case ABOUT_DIALOG:
+                return new AboutDialog(this).Show();
+        }
+        return super.onCreateDialog(id, args);
+    }
+
+    private void newEvent() {
+//        showDialog(0);
+        Intent intent = new Intent(this, EditEvent.class);
+        startActivityForResult(intent, NEW_EVENT);
     }
 }
