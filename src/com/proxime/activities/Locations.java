@@ -1,4 +1,4 @@
-package com.proxime;
+package com.proxime.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import com.proxime.adapters.CustomListAdapter;
+import com.proxime.R;
+import com.proxime.entities.Location;
 import com.proxime.repositories.LocationRepository;
 
 import java.util.List;
@@ -17,7 +20,7 @@ public class Locations extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.locations);
+        setContentView(R.layout.location_list);
         setDependencies();
         loadLocations();
         hookUpEvents();
@@ -38,7 +41,7 @@ public class Locations extends Activity {
         Button createButton = (Button) findViewById(R.id.createLocationButton);
         createButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                startActivityForResult(new Intent(getApplicationContext(), AddLocation.class), AddLocation.NEW_LOCATION);
+                startActivityForResult(new Intent(getApplicationContext(), EditLocation.class), EditLocation.NEW_LOCATION);
             }
         });
 
@@ -56,7 +59,7 @@ public class Locations extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode != RESULT_OK) return;
         switch (requestCode){
-            case AddLocation.NEW_LOCATION :
+            case EditLocation.NEW_LOCATION :
                 Location location = (Location) data.getExtras().get("location");
                 CustomListAdapter<Location> adapter = (CustomListAdapter<Location>) locationsView.getAdapter();
                 adapter.add(location);

@@ -1,10 +1,11 @@
-package com.proxime;
+package com.proxime.repositories;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
+import com.proxime.entities.Contact;
 
 public class ContactRepository {
     private ContentResolver contentResolver;

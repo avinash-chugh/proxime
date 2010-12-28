@@ -1,4 +1,4 @@
-package com.proxime;
+package com.proxime.activities;
 
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -7,11 +7,13 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
+import com.proxime.maps.GeoCoderServiceUtility;
+import com.proxime.R;
 import org.json.JSONException;
 
 import java.util.List;
 
-public class LocationFromMap extends MapActivity
+public class PickLocation extends MapActivity
 {
     public class MapOverlay extends com.google.android.maps.Overlay
     {

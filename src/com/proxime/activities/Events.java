@@ -1,4 +1,4 @@
-package com.proxime;
+package com.proxime.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,6 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
+import com.proxime.adapters.CustomListAdapter;
+import com.proxime.R;
+import com.proxime.entities.Event;
 import com.proxime.repositories.EventRepository;
 
 import java.util.List;
@@ -22,7 +25,7 @@ public class Events extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.event_list);
 
         setDependencies();
         loadEvents();

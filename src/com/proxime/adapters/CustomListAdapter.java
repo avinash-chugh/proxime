@@ -1,4 +1,4 @@
-package com.proxime;
+package com.proxime.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import com.proxime.R;
+import com.proxime.entities.Entity;
 
 import java.util.List;
 
@@ -58,8 +60,8 @@ public class CustomListAdapter<T extends Entity> extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    static class ViewHolder {
+    public static class ViewHolder {
         TextView text;
-        long id;
+        public long id;
     }
 }

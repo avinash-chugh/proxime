@@ -1,4 +1,4 @@
-package com.proxime;
+package com.proxime.maps;
 
 import com.google.android.maps.GeoPoint;
 import org.json.JSONException;

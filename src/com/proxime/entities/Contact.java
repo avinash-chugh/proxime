@@ -1,4 +1,4 @@
-package com.proxime;
+package com.proxime.entities;
 
 import android.net.Uri;
 import android.os.Parcel;

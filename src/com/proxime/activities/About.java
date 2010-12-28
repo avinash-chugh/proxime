@@ -1,4 +1,4 @@
-package com.proxime;
+package com.proxime.activities;
 
 import android.app.Activity;
 import android.os.Bundle;

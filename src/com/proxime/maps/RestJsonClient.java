@@ -1,4 +1,4 @@
-package com.proxime;
+package com.proxime.maps;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

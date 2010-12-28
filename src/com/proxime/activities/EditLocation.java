@@ -1,4 +1,4 @@
-package com.proxime;
+package com.proxime.activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -10,10 +10,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.EditText;
+import com.proxime.entities.Location;
+import com.proxime.R;
 import com.proxime.repositories.LocationRepository;
 
 
-public class AddLocation extends Activity {
+public class EditLocation extends Activity {
     public final static int NEW_LOCATION = 1;
     private boolean useMap;
     private Location location;
@@ -31,7 +33,7 @@ public class AddLocation extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_location);
+        setContentView(R.layout.location_edit);
         hookUpListeners();
         setDependencies();
     }
@@ -54,10 +56,10 @@ public class AddLocation extends Activity {
         findViewById(R.id.add_location_save).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (useMap) {
-                    startActivity(new Intent(getApplicationContext(), LocationFromMap.class));
+                    startActivity(new Intent(getApplicationContext(), PickLocation.class));
                 } else {
                     //crashes when getApplicationContext() is used for obtaining context
-                    progressDialog = ProgressDialog.show(AddLocation.this, "", "Obtaining location, please wait...",true,true,null);
+                    progressDialog = ProgressDialog.show(EditLocation.this, "", "Obtaining location, please wait...",true,true,null);
                     determineLocation();
                 }
             }

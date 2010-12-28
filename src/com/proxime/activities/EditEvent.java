@@ -1,4 +1,4 @@
-package com.proxime;
+package com.proxime.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,7 +6,13 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.TextView;
+import com.proxime.*;
+import com.proxime.entities.Contact;
+import com.proxime.entities.Event;
+import com.proxime.entities.Location;
+import com.proxime.repositories.ContactRepository;
 import com.proxime.repositories.EventRepository;
+import com.proxime.services.LocationTracker;
 
 public class EditEvent extends Activity {
 
@@ -19,7 +25,7 @@ public class EditEvent extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_event);
+        setContentView(R.layout.event_edit);
         setDependencies();
         hookUpEvents();
     }

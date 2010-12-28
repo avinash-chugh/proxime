@@ -1,4 +1,4 @@
-package com.proxime;
+package com.proxime.maps;
 
 import org.json.JSONException;
 import org.json.JSONObject;

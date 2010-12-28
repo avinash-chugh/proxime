@@ -1,4 +1,4 @@
-package com.proxime;
+package com.proxime.services;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import com.proxime.R;
+import com.proxime.entities.Event;
+import com.proxime.entities.Location;
 import com.proxime.repositories.EventRepository;
 
 

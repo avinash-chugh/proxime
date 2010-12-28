@@ -1,8 +1,10 @@
-package com.proxime;
+package com.proxime.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
+import com.proxime.R;
+import com.proxime.entities.Event;
 import com.proxime.repositories.EventRepository;
 
 public class ViewEvent extends Activity {
@@ -10,7 +12,7 @@ public class ViewEvent extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_event);
+        setContentView(R.layout.event_view);
 
         setDependencies();
         updateView();

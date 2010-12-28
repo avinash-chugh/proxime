@@ -41,12 +41,12 @@
                         android:layout_gravity="center"/>
             </RelativeLayout>
             <TextView
-                style="@style/header"
-                android:id="@+id/edit_event_contact"/>
+                    style="@style/header"
+                    android:id="@+id/edit_event_contact"/>
             <!--<ListView-->
-                    <!--android:layout_width="fill_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/edit_event_contacts_list">-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/edit_event_contacts_list">-->
             <!--</ListView>-->
 
 
@@ -64,8 +64,8 @@
             </RelativeLayout>
 
             <TextView
-                style="@style/header"
-                android:id="@+id/edit_event_location"/>
+                    style="@style/header"
+                    android:id="@+id/edit_event_location"/>
 
             <TextView
                     android:text="@string/message_title"

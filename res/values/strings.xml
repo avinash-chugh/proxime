@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Events</string>
+    <string name="app_name">Proxime</string>
     <string name="contacts_title">Contact</string>
     <string name="edit_event_add_contact">Add</string>
     <string name="name">Name</string>

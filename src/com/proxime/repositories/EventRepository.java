@@ -5,10 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import com.proxime.Contact;
-import com.proxime.ContactRepository;
-import com.proxime.Event;
-import com.proxime.Location;
+import com.proxime.entities.Contact;
+import com.proxime.entities.Event;
+import com.proxime.entities.Location;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,12 +65,20 @@ public class EventRepository implements ColumnNames
         result.setName(cursor.getString(cursor.getColumnIndexOrThrow(NAME)));
         result.setMessage(cursor.getString(cursor.getColumnIndexOrThrow(MESSAGE)));
         String contactUri = cursor.getString(cursor.getColumnIndexOrThrow(CONTACT_ID));
-        Contact contact = contactRepository.getContact(Uri.parse(contactUri));
-        result.setContact(contact);
-        Location location = locationRepository.load(cursor.getLong(cursor.getColumnIndexOrThrow(LOCATION_ID)));
-        result.setLocation(location);
+        if (contactUri != null)
+        {
+            Contact contact = contactRepository.getContact(Uri.parse(contactUri));
+            result.setContact(contact);
+        }
+        long locationId = cursor.getLong(cursor.getColumnIndexOrThrow(LOCATION_ID));
+        if (locationId > 0)
+        {
+            Location location = locationRepository.load(locationId);
+            result.setLocation(location);
+        }
         cursor.close();
         db.close();
+
         return result;
     }
 }

@@ -1,4 +1,4 @@
-package com.proxime;
+package com.proxime.activities;
 
 import android.test.ActivityInstrumentationTestCase2;
 
@@ -9,13 +9,13 @@ import android.test.ActivityInstrumentationTestCase2;
  * <p/>
  * To run this test, you can type:
  * adb shell am instrument -w \
- * -e class com.proxime.EventsTest \
+ * -e class com.proxime.activities.EventsTest \
  * com.proxime.tests/android.test.InstrumentationTestRunner
  */
 public class EventsTest extends ActivityInstrumentationTestCase2<Events> {
 
     public EventsTest() {
-        super("com.proxime", Events.class);
+        super("com.proxime.activities", Events.class);
     }
 
 }
