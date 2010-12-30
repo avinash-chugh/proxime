@@ -2,6 +2,8 @@ package com.proxime.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -28,6 +30,7 @@ public class PickLocation extends MapActivity
                     intent.putExtra("location",formattedAddress);
                     intent.putExtra("latitude",geoPoint.getLatitudeE6()/1E6);
                     intent.putExtra("longitude",geoPoint.getLongitudeE6()/1E6);
+                    ((TextView) findViewById(R.id.currentLocation)).setText(formattedAddress);
                     setResult(EditLocation.MAP_REQUEST_CODE, intent);
 
                 } catch (JSONException e)
@@ -35,7 +38,7 @@ public class PickLocation extends MapActivity
                     e.printStackTrace();
                 }
 
-                Toast.makeText(getBaseContext(), formattedAddress, Toast.LENGTH_SHORT).show();
+
                 return true;
         }
     }
@@ -50,6 +53,17 @@ public class PickLocation extends MapActivity
         List<Overlay> overlays  = mapView.getOverlays();
         overlays.clear();
         overlays.add(new MapOverlay());
+        hookUpListeners();
+    }
+
+    private void hookUpListeners()
+    {
+        findViewById(R.id.setLocation).setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view)
+            {
+                finish();
+            }
+        });
     }
 
     @Override
