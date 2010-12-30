@@ -1,14 +1,14 @@
 package com.proxime.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.widget.Toast;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
-import com.proxime.maps.GeoCoderServiceUtility;
 import com.proxime.R;
+import com.proxime.maps.GeoCoderServiceUtility;
 import org.json.JSONException;
 
 import java.util.List;
@@ -18,18 +18,18 @@ public class PickLocation extends MapActivity
     public class MapOverlay extends com.google.android.maps.Overlay
     {
         @Override
-        public boolean onTouchEvent(MotionEvent motionEvent, MapView mapView)
+        public boolean onTap(GeoPoint geoPoint, MapView mapView)
         {
             String formattedAddress ="";
-            if (motionEvent.getAction()==1)
-            {
-
-                GeoPoint point = mapView.getProjection().fromPixels(
-                        (int)motionEvent.getX(),(int)motionEvent.getY());
-
                 try
                 {
-                    formattedAddress = new GeoCoderServiceUtility(point).getFormattedAddress();
+                    formattedAddress = new GeoCoderServiceUtility(geoPoint).getFormattedAddress();
+                    Intent intent =new Intent();
+                    intent.putExtra("location",formattedAddress);
+                    intent.putExtra("latitude",geoPoint.getLatitudeE6()/1E6);
+                    intent.putExtra("longitude",geoPoint.getLongitudeE6()/1E6);
+                    setResult(EditLocation.MAP_REQUEST_CODE, intent);
+
                 } catch (JSONException e)
                 {
                     e.printStackTrace();
@@ -37,9 +37,6 @@ public class PickLocation extends MapActivity
 
                 Toast.makeText(getBaseContext(), formattedAddress, Toast.LENGTH_SHORT).show();
                 return true;
-            }
-
-        return false;
         }
     }
 

@@ -29,6 +29,7 @@ public class EditLocation extends Activity {
             progressDialog.dismiss();
         }
     };
+    public static final int MAP_REQUEST_CODE = 0;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,18 @@ public class EditLocation extends Activity {
 
     private void setDependencies() {
         locationRepository = new LocationRepository(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == MAP_REQUEST_CODE)    {
+               double latitude = data.getDoubleExtra("latitude",0);
+               double longitude = data.getDoubleExtra("longitude",0);
+
+               location = new Location(getLocationName(),latitude,longitude,getSpan());
+               saveAndReturnLocation();
+        }
     }
 
     private void hookUpListeners() {
@@ -54,9 +67,10 @@ public class EditLocation extends Activity {
             }
         });
         findViewById(R.id.add_location_save).setOnClickListener(new View.OnClickListener() {
+
             public void onClick(View view) {
                 if (useMap) {
-                    startActivity(new Intent(getApplicationContext(), PickLocation.class));
+                    startActivityForResult(new Intent(getApplicationContext(), PickLocation.class), MAP_REQUEST_CODE);
                 } else {
                     //crashes when getApplicationContext() is used for obtaining context
                     progressDialog = ProgressDialog.show(EditLocation.this, "", "Obtaining location, please wait...",true,true,null);
@@ -77,9 +91,12 @@ public class EditLocation extends Activity {
         finish();
     }
 
+
+
+
     private void determineLocation() {
         if (isDebug()) {
-            location = new Location(getName(), 1.0, 1.0, getSpan());
+            location = new Location(getLocationName(), 1.0, 1.0, getSpan());
             handler.sendEmptyMessage(OBTAIN_LOCATION);
             saveAndReturnLocation();
             return;
@@ -87,7 +104,7 @@ public class EditLocation extends Activity {
         LocationManager manager = (LocationManager) getSystemService(LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(android.location.Location loc) {
-                location = new Location(getName(), loc.getLatitude(), loc.getLongitude(), getSpan());
+                location = new Location(getLocationName(), loc.getLatitude(), loc.getLongitude(), getSpan());
                 handler.sendEmptyMessage(OBTAIN_LOCATION);
                 saveAndReturnLocation();
             }
@@ -113,7 +130,7 @@ public class EditLocation extends Activity {
         return ((EditText) findViewById(R.id.add_location_debug)).getText().toString().equals("yes");
     }
 
-    private String getName() {
+    private String getLocationName() {
         return ((EditText) findViewById(R.id.add_location_name)).getText().toString();
     }
 
