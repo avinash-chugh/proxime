@@ -14,11 +14,10 @@ public class AboutDialog {
     private Activity activity;
 
     public AboutDialog(Activity activity) {
-
         this.activity = activity;
     }
 
-    public Dialog Show() {
+    public Dialog show() {
         ScrollView scrollView = new ScrollView(activity);
         TextView textView = new TextView(activity);
 

@@ -20,8 +20,8 @@ import com.proxime.repositories.EventRepository;
 import java.util.List;
 
 public class Events extends Activity {
-    private static final int NEW_EVENT = 1;
-    private static final int ABOUT_DIALOG = 1;
+    private static final int NEW_EVENT = R.id.add_event;
+    private static final int ABOUT_DIALOG = R.id.about_proxime;
     private EventRepository eventRepository;
     private ListView eventsView;
 
@@ -118,10 +118,11 @@ public class Events extends Activity {
     }
 
     @Override
-    protected Dialog onCreateDialog(int id, Bundle args) {
+    public Dialog onCreateDialog(int id, Bundle args) {
         switch (id) {
-            case ABOUT_DIALOG:
-                return new AboutDialog(this).Show();
+            case ABOUT_DIALOG: {
+                return new AboutDialog(this).show();
+            }
         }
         return super.onCreateDialog(id, args);
     }

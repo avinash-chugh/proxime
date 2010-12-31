@@ -18,8 +18,8 @@ import com.proxime.repositories.LocationRepository;
 import java.util.List;
 
 public class Locations extends Activity {
-    private static final int NEW_LOCATION = 1;
-    private static final int ABOUT_DIALOG = 1;
+    private static final int NEW_LOCATION = R.id.add_location;
+    private static final int ABOUT_DIALOG = R.id.about_proxime;
     private ListView locationsView;
     private LocationRepository locationRepository;
 
@@ -102,7 +102,7 @@ public class Locations extends Activity {
     protected Dialog onCreateDialog(int id, Bundle args) {
         switch (id) {
             case ABOUT_DIALOG:
-                return new AboutDialog(this).Show();
+                return new AboutDialog(this).show();
         }
         return super.onCreateDialog(id, args);
     }
