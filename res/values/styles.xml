@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="header" parent="@android:style/TextAppearance.Large">
+    <style name="text" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:typeface">sans</item>
         <item name="android:paddingLeft">5dip</item>
         <item name="android:paddingRight">5dip</item>
     </style>
+
+    <style name="smalltext" parent="@android:style/TextAppearance.Small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:paddingLeft">5dip</item>
+        <item name="android:paddingRight">5dip</item>
+    </style>
+
+
 
     <style name="textbox">
         <item name="android:layout_width">wrap_content</item>
@@ -22,10 +32,9 @@
         <item name="android:typeface">sans</item>
         <item name="android:paddingLeft">5dip</item>
         <item name="android:paddingRight">5dip</item>
-        <item name="android:paddingTop">10dip</item>
-        <item name="android:paddingBottom">10dip</item>
-        <item name="android:background">#FF8ABB40</item>
-
+        <item name="android:paddingTop">5dip</item>
+        <item name="android:paddingBottom">5dip</item>
+        <item name="android:background">#FFAAAAAA</item>
     </style>
 
     <style name="horizontal_line">

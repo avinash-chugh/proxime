@@ -6,25 +6,22 @@
               android:orientation="vertical"
         >
     <TextView
-            android:id="@+id/view_event_name"
-            style="@style/header"/>
-    <TextView
             android:text="@string/message_title"
             style="@style/caption"/>
     <TextView
             android:id="@+id/view_event_message"
-            style="@style/header"
+            style="@style/text"
             />
     <TextView
             android:text="@string/contacts_title"
             style="@style/caption"/>
     <TextView
             android:id="@+id/view_event_contact"
-            style="@style/header"/>
+            style="@style/text"/>
     <TextView
             android:text="@string/locations_title"
             style="@style/caption"/>
     <TextView
             android:id="@+id/view_event_location"
-            style="@style/header"/>
+            style="@style/text"/>
 </LinearLayout>

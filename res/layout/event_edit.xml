@@ -41,7 +41,7 @@
                         android:layout_gravity="center"/>
             </RelativeLayout>
             <TextView
-                    style="@style/header"
+                    style="@style/text"
                     android:id="@+id/edit_event_contact"/>
             <!--<ListView-->
             <!--android:layout_width="fill_parent"-->
@@ -64,7 +64,7 @@
             </RelativeLayout>
 
             <TextView
-                    style="@style/header"
+                    style="@style/text"
                     android:id="@+id/edit_event_location"/>
 
             <TextView

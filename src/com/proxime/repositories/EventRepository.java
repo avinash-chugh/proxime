@@ -40,22 +40,24 @@ public class EventRepository implements ColumnNames
 
     public List<Event> loadAll() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor cursor = db.query(CustomDBHelper.EVENTS_TABLE, new String[]{ID, NAME}, null, null, null, null, null);
+        Cursor cursor = db.query(CustomDBHelper.EVENTS_TABLE, new String[]{ID}, null, null, null, null, null);
+
         List<Event> result = new ArrayList<Event>();
+        List<Long> eventIds = new ArrayList<Long>();
         while(cursor.moveToNext())
         {
-            Event event = new Event();
-            event.setId(cursor.getInt(cursor.getColumnIndexOrThrow(ID)));
-            event.setName(cursor.getString(cursor.getColumnIndexOrThrow(NAME)));
-            result.add(event);
+            long id = cursor.getLong(cursor.getColumnIndexOrThrow(ID));
+            eventIds.add(id);
         }
         cursor.close();
         db.close();
+        for(long id : eventIds) result.add(load(id));
         return result;
     }
 
     public Event load(long id) {
         Event result = new Event();
+        result.setId(id);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String[] columns = {NAME, MESSAGE, CONTACT_ID, LOCATION_ID};
         String selection = ID + " = ?";

@@ -13,7 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import com.proxime.R;
-import com.proxime.adapters.CustomListAdapter;
+import com.proxime.adapters.EventListAdapter;
 import com.proxime.entities.Event;
 import com.proxime.repositories.EventRepository;
 
@@ -48,7 +48,7 @@ public class Events extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode != RESULT_OK) return;
         if(requestCode == NEW_EVENT) {
-            CustomListAdapter<Event> adapter = (CustomListAdapter<Event>) eventsView.getAdapter();
+            EventListAdapter<Event> adapter = (EventListAdapter<Event>) eventsView.getAdapter();
             Event event = (Event) data.getExtras().get("event");
             adapter.add(event);
         }
@@ -58,7 +58,7 @@ public class Events extends Activity {
         List<Event> events = eventRepository.loadAll();
         eventsView = (ListView) findViewById(R.id.eventsList);
         eventsView.setTextFilterEnabled(true);
-        eventsView.setAdapter(new CustomListAdapter<Event>(this, events));
+        eventsView.setAdapter(new EventListAdapter<Event>(this, events));
     }
 
     private void hookUpListeners() {
@@ -71,7 +71,7 @@ public class Events extends Activity {
 
         eventsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                long id = ((CustomListAdapter.ViewHolder) view.getTag()).id;
+                long id = ((EventListAdapter.EventViewHolder) view.getTag()).id;
                 startActivity(new Intent(getApplicationContext(), ViewEvent.class).putExtra("event_id", id));
             }
         });
