@@ -35,13 +35,13 @@ public class EditEvent extends Activity {
         long id = getIntent().getLongExtra("event_id", -1);
         if (id < 0) return;
 
-        Event event = eventRepository.load(id);
-        
+        event = eventRepository.load(id);
+
         setTitle(event.getName());
         setText(R.id.edit_event_name, event.getName());
         setText(R.id.edit_event_message, event.getMessage());
-        if(event.getContact() != null) setText(R.id.edit_event_contact, event.getContact().getName());
-        if(event.getLocation() != null) setText(R.id.edit_event_location, event.getLocation().getName());
+        if (event.getContact() != null) setText(R.id.edit_event_contact, event.getContact().getName());
+        if (event.getLocation() != null) setText(R.id.edit_event_location, event.getLocation().getName());
     }
 
     @Override

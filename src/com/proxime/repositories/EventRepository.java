@@ -28,19 +28,28 @@ public class EventRepository implements ColumnNames
 
     public void save(Event event) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+
         ContentValues values = new ContentValues();
         values.put(NAME, event.getName());
         values.put(MESSAGE, event.getMessage());
-        if(event.hasLocation())values.put(LOCATION_ID, event.getLocation().getId());
-        if(event.hasContact()) values.put(CONTACT_ID, event.getContact().getUri().toString());
-        long id = db.insertOrThrow(CustomDBHelper.EVENTS_TABLE, null, values);
+        if (event.hasLocation()) values.put(LOCATION_ID, event.getLocation().getId());
+        if (event.hasContact()) values.put(CONTACT_ID, event.getContact().getUri().toString());
+
+        long id = event.getId();
+        if (id > 0)
+            db.update(CustomDBHelper.EVENTS_TABLE, values, ID + " = ?", new String[] {Long.toString(id)});
+        else
+        {
+            id = db.insertOrThrow(CustomDBHelper.EVENTS_TABLE, null, values);
+            event.setId(id);
+        }
+
         db.close();
-        event.setId(id);
     }
 
     public void delete(long id) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete(CustomDBHelper.EVENTS_TABLE, ID + " = ?", new String[] {new Long(id).toString()});
+        db.delete(CustomDBHelper.EVENTS_TABLE, ID + " = ?", new String[] {Long.toString(id)});
         db.close();
     }
 
@@ -67,7 +76,7 @@ public class EventRepository implements ColumnNames
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String[] columns = {NAME, MESSAGE, CONTACT_ID, LOCATION_ID};
         String selection = ID + " = ?";
-        String[] selectionArgs = {new Long(id).toString()};
+        String[] selectionArgs = {Long.toString(id)};
         Cursor cursor = db.query(CustomDBHelper.EVENTS_TABLE, columns, selection, selectionArgs, null, null, null, null);
         cursor.moveToNext();
         result.setName(cursor.getString(cursor.getColumnIndexOrThrow(NAME)));

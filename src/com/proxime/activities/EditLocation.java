@@ -9,11 +9,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.EditText;
-import com.proxime.entities.Location;
+import android.widget.TextView;
 import com.proxime.R;
+import com.proxime.entities.Location;
 import com.proxime.repositories.LocationRepository;
-
 
 public class EditLocation extends Activity {
     private boolean useMap;
@@ -36,6 +35,18 @@ public class EditLocation extends Activity {
         setContentView(R.layout.location_edit);
         hookUpListeners();
         setDependencies();
+        loadLocation();
+    }
+
+    private void loadLocation() {
+        long id = getIntent().getLongExtra("location_id", -1);
+        if (id < 0) return;
+
+        location = locationRepository.load(id);
+
+        setTitle(location.getName());
+        setText(R.id.edit_location_name, location.getName());
+        if (location.getSpan() > 0) setText(R.id.edit_location_span, Integer.toString(location.getSpan()));
     }
 
     private void setDependencies() {
@@ -43,69 +54,72 @@ public class EditLocation extends Activity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (requestCode == MAP_REQUEST_CODE)    {
-               double latitude = data.getDoubleExtra("latitude",0);
-               double longitude = data.getDoubleExtra("longitude",0);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == MAP_REQUEST_CODE) {
+            double latitude = data.getDoubleExtra("latitude", 0);
+            double longitude = data.getDoubleExtra("longitude", 0);
 
-               location = new Location(getLocationName(),latitude,longitude,getSpan());
-               saveAndReturnLocation();
+            location.setLatitude(latitude);
+            location.setLongitude(longitude);
+            saveLocation();
         }
     }
 
     private void hookUpListeners() {
-        findViewById(R.id.add_location_use_current).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.edit_location_use_current).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 useMap = false;
             }
         });
-        findViewById(R.id.add_location_use_map).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.edit_location_use_map).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 useMap = true;
             }
         });
-        findViewById(R.id.add_location_save).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.save_location).setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 if (useMap) {
                     startActivityForResult(new Intent(getApplicationContext(), PickLocation.class), MAP_REQUEST_CODE);
                 } else {
                     //crashes when getApplicationContext() is used for obtaining context
-                    progressDialog = ProgressDialog.show(EditLocation.this, "", "Obtaining location, please wait...",true,true,null);
+                    progressDialog = ProgressDialog.show(EditLocation.this, "", "Obtaining location, please wait...", true, true, null);
                     determineLocation();
                 }
             }
         });
-        findViewById(R.id.add_location_cancel).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.cancel_location).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 finish();
             }
         });
     }
 
-    private void saveAndReturnLocation() {
+    private void saveLocation() {
+        location.setName(getLocationName());
+        location.setSpan(getSpan());
+        
         locationRepository.save(location);
         setResult(RESULT_OK, new Intent().putExtra("location", location));
         finish();
     }
 
-
-
-
     private void determineLocation() {
         if (isDebug()) {
-            location = new Location(getLocationName(), 1.0, 1.0, getSpan());
+            location.setLatitude(1.0);
+            location.setLongitude(1.0);
+
             handler.sendEmptyMessage(OBTAIN_LOCATION);
-            saveAndReturnLocation();
+            saveLocation();
             return;
         }
         LocationManager manager = (LocationManager) getSystemService(LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
-            public void onLocationChanged(android.location.Location loc) {
-                location = new Location(getLocationName(), loc.getLatitude(), loc.getLongitude(), getSpan());
+            public void onLocationChanged(android.location.Location mapPlace) {
+                location.setLatitude(mapPlace.getLatitude());
+                location.setLongitude(mapPlace.getLongitude());
                 handler.sendEmptyMessage(OBTAIN_LOCATION);
-                saveAndReturnLocation();
+                saveLocation();
             }
 
             public void onStatusChanged(String s, int i, Bundle bundle) {
@@ -121,17 +135,22 @@ public class EditLocation extends Activity {
     }
 
     private int getSpan() {
-        String span = ((EditText) findViewById(R.id.add_location_span)).getText().toString();
-        return new Integer(span).intValue();
+        return new Integer(getViewText(R.id.edit_location_span));
     }
 
     private boolean isDebug() {
-        return ((EditText) findViewById(R.id.add_location_debug)).getText().toString().equals("yes");
+        return "yes".equals(getViewText(R.id.edit_location_debug));
     }
 
     private String getLocationName() {
-        return ((EditText) findViewById(R.id.add_location_name)).getText().toString();
+        return getViewText(R.id.edit_location_name);
     }
 
+    public String getViewText(int resourceId) {
+        return ((TextView) findViewById(resourceId)).getText().toString();
+    }
 
+    private void setText(int id, String text) {
+        ((TextView) findViewById(id)).setText(text);
+    }
 }

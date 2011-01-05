@@ -57,6 +57,11 @@ public class BaseListAdapter<T extends Entity> extends BaseAdapter {
         return convertView;
     }
 
+    public void remove(T item) {
+        data.remove(item);
+        notifyDataSetChanged();
+    }
+
     public static class ViewHolder {
         TextView text;
         public long id;

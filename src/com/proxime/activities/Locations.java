@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,8 +21,11 @@ import java.util.List;
 public class Locations extends Activity {
     private static final int NEW_LOCATION = R.id.add_location;
     private static final int ABOUT_DIALOG = R.id.about_proxime;
+    private static final int EDIT_LOCATION = R.id.edit_location;
+
     private ListView locationsView;
     private LocationRepository locationRepository;
+    private BaseListAdapter<Location> adapter;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +43,8 @@ public class Locations extends Activity {
         List<Location> locations = locationRepository.loadAll();
         locationsView = (ListView) findViewById(R.id.locationsList);
         locationsView.setTextFilterEnabled(true);
-        locationsView.setAdapter(new BaseListAdapter<Location>(this,locations));
+        adapter = new BaseListAdapter<Location>(this, locations);
+        locationsView.setAdapter(adapter);
     }
 
     private void hookUpEvents() {
@@ -57,18 +62,25 @@ public class Locations extends Activity {
                 finish();
             }
         });
+
+        registerForContextMenu(locationsView);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode != RESULT_OK) return;
-        switch (requestCode){
-            case NEW_LOCATION :
+        if (resultCode != RESULT_OK) return;
+
+        switch (requestCode) {
+            case NEW_LOCATION: {
                 Location location = (Location) data.getExtras().get("location");
-                BaseListAdapter<Location> adapter = (BaseListAdapter<Location>) locationsView.getAdapter();
                 adapter.add(location);
                 break;
+            }
+            case EDIT_LOCATION: {
+                loadLocations();
+                break;
+            }
         }
     }
 
@@ -96,6 +108,40 @@ public class Locations extends Activity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.locations_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        Location location = adapter.getItem(info.position);
+
+        switch (item.getItemId()) {
+            case R.id.edit_location: {
+                editLocation(location.getId());
+                break;
+            }
+            case R.id.delete_location: {
+                deleteLocation(location);
+                break;
+            }
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    private void deleteLocation(Location location) {
+        locationRepository.delete(location.getId());
+        adapter.remove(location);
+    }
+
+    private void editLocation(long id) {
+        Intent intent = new Intent(getApplicationContext(), EditLocation.class).putExtra("location_id", id);
+        startActivityForResult(intent, EDIT_LOCATION);
     }
 
     @Override

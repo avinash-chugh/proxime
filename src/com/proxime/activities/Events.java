@@ -22,9 +22,11 @@ import java.util.List;
 
 public class Events extends Activity {
     private static final int NEW_EVENT = R.id.add_event;
+    private static final int EDIT_EVENT = R.id.edit_event;
     private static final int ABOUT_DIALOG = R.id.about_proxime;
     private EventRepository eventRepository;
     private ListView eventsView;
+    private EventListAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,9 +51,17 @@ public class Events extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode != RESULT_OK) return;
-        if(requestCode == NEW_EVENT) {
-            Event event = (Event) data.getExtras().get("event");
-            ((EventListAdapter<Event>) eventsView.getAdapter()).add(event);
+
+        switch (requestCode) {
+            case NEW_EVENT:  {
+                Event event = (Event) data.getExtras().get("event");
+                adapter.add(event);
+                break;
+            }
+            case EDIT_EVENT: {
+                loadEvents();
+                break;
+            }
         }
     }
 
@@ -59,7 +69,8 @@ public class Events extends Activity {
         List<Event> events = eventRepository.loadAll();
         eventsView = (ListView) findViewById(R.id.eventsList);
         eventsView.setTextFilterEnabled(true);
-        eventsView.setAdapter(new EventListAdapter<Event>(this, events));
+        adapter = new EventListAdapter(this, events);
+        eventsView.setAdapter(adapter);
     }
 
     private void hookUpListeners() {
@@ -72,7 +83,7 @@ public class Events extends Activity {
 
         eventsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                long id = ((EventListAdapter.EventViewHolder) view.getTag()).id;
+                long id = ((EventListAdapter.ViewHolder) view.getTag()).id;
                 startActivity(new Intent(getApplicationContext(), ViewEvent.class).putExtra("event_id", id));
             }
         });
@@ -139,7 +150,7 @@ public class Events extends Activity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        Event event = ((EventListAdapter<Event>) eventsView.getAdapter()).getItem(info.position);
+        Event event = adapter.getItem(info.position);
 
         switch (item.getItemId()) {
             case R.id.edit_event: {
@@ -147,7 +158,7 @@ public class Events extends Activity {
                 break;
             }
             case R.id.delete_event: {
-                deleteEvent(event.getId());
+                deleteEvent(event);
                 break;
             }
         }
@@ -162,11 +173,13 @@ public class Events extends Activity {
     }
 
     private void editEvent(long id) {
-        startActivity(new Intent(getApplicationContext(), EditEvent.class).putExtra("event_id", id));
+        Intent intent = new Intent(getApplicationContext(), EditEvent.class).putExtra("event_id", id);
+        startActivityForResult(intent, EDIT_EVENT);
     }
 
-    private void deleteEvent(long id) {
-        eventRepository.delete(id);
+    private void deleteEvent(Event event) {
+        eventRepository.delete(event.getId());
+        adapter.remove(event);
         loadEvents();
     }
 }

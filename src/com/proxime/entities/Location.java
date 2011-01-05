@@ -19,7 +19,7 @@ public class Location implements Entity {
     }
 
     public Location(String name, double latitude, double longitude, int span) {
-        this(0,name,latitude,longitude,span);
+        this(0, name, latitude, longitude, span);
     }
 
     public Location(int id, String name) {
@@ -30,6 +30,9 @@ public class Location implements Entity {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public void setId(long id) {
         this.id = id;
@@ -47,12 +50,24 @@ public class Location implements Entity {
         return latitude;
     }
 
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
     public double getLongitude() {
         return longitude;
     }
 
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
     public int getSpan() {
         return span;
+    }
+
+    public void setSpan(int span) {
+        this.span = span;
     }
 
     public int describeContents() {
@@ -84,5 +99,4 @@ public class Location implements Entity {
             return new Location[size];
         }
     };
-
 }

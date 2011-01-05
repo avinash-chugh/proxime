@@ -16,35 +16,35 @@
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent">
                 <TextView
-                        android:id="@+id/add_location_name_label"
+                        android:id="@+id/edit_location_name_label"
                         android:text="@string/name"
                         android:layout_width="wrap_content"
                         style="@style/caption"/>
                 <EditText
-                        android:id="@+id/add_location_name"
+                        android:id="@+id/edit_location_name"
                         style="@style/textbox"
                         android:layout_width="fill_parent"
-                        android:layout_toRightOf="@id/add_location_name_label"
+                        android:layout_toRightOf="@id/edit_location_name_label"
                         />
             </RelativeLayout>
             <RelativeLayout
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent">
                 <TextView
-                        android:id="@+id/add_location_span_label"
+                        android:id="@+id/edit_location_span_label"
                         android:text="@string/span"
                         android:layout_width="wrap_content"
                         style="@style/caption"/>
                 <EditText
-                        android:id="@+id/add_location_span"
+                        android:id="@+id/edit_location_span"
                         style="@style/textbox"
                         android:layout_width="fill_parent"
-                        android:layout_toRightOf="@id/add_location_span_label"
+                        android:layout_toRightOf="@id/edit_location_span_label"
                         android:numeric="integer"
                         />
             </RelativeLayout>
             <EditText
-                    android:id="@+id/add_location_debug"
+                    android:id="@+id/edit_location_debug"
                     style="@style/textbox"
                     android:layout_width="fill_parent"
                     android:text="yes"
@@ -55,12 +55,12 @@
                     android:orientation="vertical"
                     >
 
-                <RadioButton android:id="@+id/add_location_use_current"
+                <RadioButton android:id="@+id/edit_location_use_current"
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:text="Use current location"/>
 
-                <RadioButton android:id="@+id/add_location_use_map"
+                <RadioButton android:id="@+id/edit_location_use_map"
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:text="Use map"/>
@@ -75,13 +75,13 @@
             android:layout_width="fill_parent"
             android:orientation="horizontal">
         <Button
-                android:id="@+id/add_location_save"
+                android:id="@+id/save_location"
                 android:text="@string/save"
                 style="@style/button_row"/>
         <Button
-                android:id="@+id/add_location_cancel"
+                android:id="@+id/cancel_location"
                 android:text="@string/cancel"
-                android:layout_toRightOf="@id/add_location_save"
+                android:layout_toRightOf="@id/save_location"
                 style="@style/button_row"/>
     </LinearLayout>
 </LinearLayout>
