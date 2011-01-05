@@ -13,7 +13,6 @@ import java.util.List;
 
 public class BaseListAdapter<T extends Entity> extends BaseAdapter {
 
-
     private List<T> data;
     protected LayoutInflater inflater;
 
@@ -30,9 +29,13 @@ public class BaseListAdapter<T extends Entity> extends BaseAdapter {
         return data.get(position);
     }
 
-
     public long getItemId(int position) {
-        return position;
+        return getItem(position).getId();
+    }
+
+    public void add(T item) {
+        data.add(item);
+        notifyDataSetChanged();
     }
 
     public View getView(int position, View convertView, ViewGroup viewGroup) {
@@ -52,11 +55,6 @@ public class BaseListAdapter<T extends Entity> extends BaseAdapter {
         holder.text.setText(item.getName());
 
         return convertView;
-    }
-
-    public void add(T item) {
-        data.add(item);
-        notifyDataSetChanged();
     }
 
     public static class ViewHolder {

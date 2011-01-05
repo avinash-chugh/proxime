@@ -38,6 +38,12 @@ public class EventRepository implements ColumnNames
         event.setId(id);
     }
 
+    public void delete(long id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete(CustomDBHelper.EVENTS_TABLE, ID + " = ?", new String[] {new Long(id).toString()});
+        db.close();
+    }
+
     public List<Event> loadAll() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor cursor = db.query(CustomDBHelper.EVENTS_TABLE, new String[]{ID}, null, null, null, null, null);

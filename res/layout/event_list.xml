@@ -14,7 +14,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/createButton"
                 android:hint="Search Event"
-                android:id="@+id/edit_event_name"
+                android:id="@+id/search_event"
                 />
     </RelativeLayout>
     <ListView android:layout_height="fill_parent"

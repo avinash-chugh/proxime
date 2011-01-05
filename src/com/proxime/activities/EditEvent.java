@@ -28,8 +28,21 @@ public class EditEvent extends Activity {
         setContentView(R.layout.event_edit);
         setDependencies();
         hookUpEvents();
+        loadEvent();
     }
 
+    private void loadEvent() {
+        long id = getIntent().getLongExtra("event_id", -1);
+        if (id < 0) return;
+
+        Event event = eventRepository.load(id);
+        
+        setTitle(event.getName());
+        setText(R.id.edit_event_name, event.getName());
+        setText(R.id.edit_event_message, event.getMessage());
+        if(event.getContact() != null) setText(R.id.edit_event_contact, event.getContact().getName());
+        if(event.getLocation() != null) setText(R.id.edit_event_location, event.getLocation().getName());
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -53,7 +66,6 @@ public class EditEvent extends Activity {
         contactRepository = new ContactRepository(this.getContentResolver());
         eventRepository = new EventRepository(this);
     }
-
 
     private void hookUpEvents() {
 
@@ -82,6 +94,7 @@ public class EditEvent extends Activity {
                 event.setName(getViewText(R.id.edit_event_name));
                 event.setMessage(getViewText(R.id.edit_event_message));
                 eventRepository.save(event);
+                
                 startService(new Intent(EditEvent.this, LocationTracker.class).putExtra("event", event).putExtra("action", "add"));
                 setResult(RESULT_OK, new Intent().putExtra("event", event));
                 finish();
@@ -99,5 +112,9 @@ public class EditEvent extends Activity {
 
     public String getViewText(int resourceId) {
         return ((TextView) findViewById(resourceId)).getText().toString();
+    }
+
+    private void setText(int id, String text) {
+        ((TextView)findViewById(id)).setText(text);
     }
 }

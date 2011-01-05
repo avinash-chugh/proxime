@@ -15,15 +15,13 @@ public class ViewEvent extends Activity {
         setContentView(R.layout.event_view);
 
         setDependencies();
-        updateView();
+        loadEvent();
     }
 
-    private void updateView() {
-
+    private void loadEvent() {
         long id = getIntent().getLongExtra("event_id", -1);
         Event event = eventRepository.load(id);
         setTitle(event.getName());
-//        setText(R.id.view_event_name, event.getName());
         setText(R.id.view_event_message,event.getMessage());
         if(event.getContact() != null) setText(R.id.view_event_contact, event.getContact().getName());
         if(event.getLocation() != null) setText(R.id.view_event_location, event.getLocation().getName());

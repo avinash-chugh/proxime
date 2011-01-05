@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +33,7 @@ public class Events extends Activity {
 
         setDependencies();
         loadEvents();
+
         hookUpListeners();
         createTrackerService();
     }
@@ -48,9 +50,8 @@ public class Events extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode != RESULT_OK) return;
         if(requestCode == NEW_EVENT) {
-            EventListAdapter<Event> adapter = (EventListAdapter<Event>) eventsView.getAdapter();
             Event event = (Event) data.getExtras().get("event");
-            adapter.add(event);
+            ((EventListAdapter<Event>) eventsView.getAdapter()).add(event);
         }
     }
 
@@ -75,6 +76,8 @@ public class Events extends Activity {
                 startActivity(new Intent(getApplicationContext(), ViewEvent.class).putExtra("event_id", id));
             }
         });
+
+        registerForContextMenu(eventsView);
     }
 
     @Override
@@ -127,9 +130,43 @@ public class Events extends Activity {
         return super.onCreateDialog(id, args);
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.events_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        Event event = ((EventListAdapter<Event>) eventsView.getAdapter()).getItem(info.position);
+
+        switch (item.getItemId()) {
+            case R.id.edit_event: {
+                editEvent(event.getId());
+                break;
+            }
+            case R.id.delete_event: {
+                deleteEvent(event.getId());
+                break;
+            }
+        }
+        return super.onContextItemSelected(item);
+
+    }
+
     private void newEvent() {
 //        showDialog(0);
         Intent intent = new Intent(this, EditEvent.class);
         startActivityForResult(intent, NEW_EVENT);
+    }
+
+    private void editEvent(long id) {
+        startActivity(new Intent(getApplicationContext(), EditEvent.class).putExtra("event_id", id));
+    }
+
+    private void deleteEvent(long id) {
+        eventRepository.delete(id);
+        loadEvents();
     }
 }
