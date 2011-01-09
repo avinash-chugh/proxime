@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
@@ -27,7 +26,7 @@ public class PickLocation extends MapActivity
                 {
                     formattedAddress = new GeoCoderServiceUtility(geoPoint).getFormattedAddress();
                     Intent intent =new Intent();
-                    intent.putExtra("location",formattedAddress);
+                    intent.putExtra("formattedAddress",formattedAddress);
                     intent.putExtra("latitude",geoPoint.getLatitudeE6()/1E6);
                     intent.putExtra("longitude",geoPoint.getLongitudeE6()/1E6);
                     ((TextView) findViewById(R.id.currentLocation)).setText(formattedAddress);

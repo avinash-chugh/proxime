@@ -43,29 +43,23 @@
                         android:numeric="integer"
                         />
             </RelativeLayout>
-            <EditText
-                    android:id="@+id/edit_location_debug"
-                    style="@style/textbox"
-                    android:layout_width="fill_parent"
-                    android:text="yes"
-                    />
-            <RadioGroup
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+           <LinearLayout
+                   android:layout_width="fill_parent"
+                   android:layout_height="fill_parent"
                     android:orientation="vertical"
-                    >
+           >
+               <Button
+                       android:id="@+id/addLocation"
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:text="Get Location from Map">
+               </Button>
+               <TextView android:id="@+id/formattedAddress"
+                         android:layout_width="fill_parent"
+                         android:layout_height="wrap_content"/>
 
-                <RadioButton android:id="@+id/edit_location_use_current"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:text="Use current location"/>
 
-                <RadioButton android:id="@+id/edit_location_use_map"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:text="Use map"/>
-
-            </RadioGroup>
+           </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

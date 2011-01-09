@@ -35,7 +35,12 @@ public class EditLocation extends Activity {
         setContentView(R.layout.location_edit);
         hookUpListeners();
         setDependencies();
+        setDefaultLocation();
         loadLocation();
+    }
+
+    private void setDefaultLocation()   {
+        location = new Location("",1.0,1.0,0);
     }
 
     private void loadLocation() {
@@ -58,34 +63,24 @@ public class EditLocation extends Activity {
         if (requestCode == MAP_REQUEST_CODE) {
             double latitude = data.getDoubleExtra("latitude", 0);
             double longitude = data.getDoubleExtra("longitude", 0);
-
             location.setLatitude(latitude);
             location.setLongitude(longitude);
-            saveLocation();
+            ((TextView) findViewById(R.id.formattedAddress)).setText(data.getStringExtra("formattedAddress"));
         }
     }
 
     private void hookUpListeners() {
-        findViewById(R.id.edit_location_use_current).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                useMap = false;
-            }
-        });
-        findViewById(R.id.edit_location_use_map).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                useMap = true;
+
+        findViewById(R.id.addLocation).setOnClickListener(new View.OnClickListener(){
+
+            public void onClick(View view)
+            {
+                startActivityForResult(new Intent(getApplicationContext(), PickLocation.class), MAP_REQUEST_CODE);
             }
         });
         findViewById(R.id.save_location).setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View view) {
-                if (useMap) {
-                    startActivityForResult(new Intent(getApplicationContext(), PickLocation.class), MAP_REQUEST_CODE);
-                } else {
-                    //crashes when getApplicationContext() is used for obtaining context
-                    progressDialog = ProgressDialog.show(EditLocation.this, "", "Obtaining location, please wait...", true, true, null);
-                    determineLocation();
-                }
+                saveLocation();
             }
         });
         findViewById(R.id.cancel_location).setOnClickListener(new View.OnClickListener() {
@@ -139,7 +134,7 @@ public class EditLocation extends Activity {
     }
 
     private boolean isDebug() {
-        return "yes".equals(getViewText(R.id.edit_location_debug));
+        return false;
     }
 
     private String getLocationName() {
