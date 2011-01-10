@@ -75,6 +75,11 @@ public class EditLocation extends Activity {
 
             public void onClick(View view)
             {
+                //String geoUriString = getResources().getString(R.string.map_location);
+//                Uri geoUri = Uri.parse("geo:0,180?z=1");
+//                Intent mapCall = new Intent(Intent.ACTION_VIEW, geoUri);
+//                startActivityForResult(mapCall,MAP_REQUEST_CODE);
+
                 startActivityForResult(new Intent(getApplicationContext(), PickLocation.class), MAP_REQUEST_CODE);
             }
         });

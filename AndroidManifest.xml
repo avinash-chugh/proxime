@@ -16,7 +16,7 @@
             <!--</intent-filter>-->
         </activity>
         <activity android:name=".activities.ViewEvent"/>
-        <activity android:name=".activities.PickLocation" android:label="Choose Location"/>
+        <activity android:name=".activities.PickLocation" android:label="Choose Location" android:theme="@android:style/Theme.Light.NoTitleBar"/>
         <activity android:name=".activities.Locations" android:label="Choose Location"/>
         <activity android:name=".activities.About" android:label="About Proxime"/>
         <activity android:name=".activities.Addresses" android:label="Addresses"/>
