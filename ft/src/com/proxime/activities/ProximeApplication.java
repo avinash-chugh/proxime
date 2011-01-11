@@ -23,6 +23,7 @@ class ProximeApplication {
     public static final String EVENTS_ACTIVITY = "Events" ;
     public static final String NEW_EVENT_ACTIVITY = "EditEvent" ;
     public static final String LOCATION_ACTIVITY = "Locations" ;
+    public static final String NEW_LOCATION_ACTIVITY = "EditLocation" ;
 
     public ProximeApplication(Instrumentation inst,Activity activity) throws ClassNotFoundException{
         solo = new Solo(inst,activity);
@@ -51,5 +52,10 @@ class ProximeApplication {
     public LocationsActivity getLocationsActivity() {
         waitForActivity(ProximeApplication.LOCATION_ACTIVITY);
         return new LocationsActivity(solo);
+    }
+
+    public NewLocationActivity getNewLocationActivity() {
+        waitForActivity(ProximeApplication.NEW_LOCATION_ACTIVITY);
+        return new NewLocationActivity(solo);
     }
 }

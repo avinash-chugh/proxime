@@ -36,31 +36,42 @@ public class EventsTest extends ActivityInstrumentationTestCase2 {
 
     }
 
-    private String getNewEventName() {
-        return "Sample " + System.currentTimeMillis();
+    private String getNewName(String name) {
+        return "SampleEvent " + System.currentTimeMillis();
     }
 
     public void testCanCreateNewEvents(){
 
         EventsActivity eventsActivity = application.getEventsActivity();
-        int previous_count=eventsActivity.getEventsCount();
+        int previousCount=eventsActivity.getEventsCount();
         eventsActivity.addNewEvent();
         NewEventActivity newEventActivity = application.getNewEventActivity();
 
 
-        String eventname=getNewEventName();
+        String eventname=getNewName("SampleEvent ");
         newEventActivity.setEventname(eventname);
         newEventActivity.save();
 
         eventsActivity= application.getEventsActivity();
-        assertEquals(previous_count+1,eventsActivity.getEventsCount());
+        assertEquals(previousCount+1,eventsActivity.getEventsCount());
         assertEquals(eventname,eventsActivity.getLastEventName());
 
     }
     public void testCanCreateNewLocation(){
         application.openLocationActivity();
         LocationsActivity locationsActivity = application.getLocationsActivity();
+        int previousCount  = locationsActivity.getLocationsCount();
+        locationsActivity.addNewLocation();
+        NewLocationActivity newLocationActivity = application.getNewLocationActivity();
 
+        String locationName=getNewName("SampleLocation ");
+        newLocationActivity.setLocationName(locationName);
+        newLocationActivity.setLocationSpan(10);
+        newLocationActivity.save();
+
+        locationsActivity=application.getLocationsActivity();
+        assertEquals(previousCount+1,locationsActivity.getLocationsCount());
+        assertEquals(locationName,locationsActivity.getLastEventName());
     }
 }
 
