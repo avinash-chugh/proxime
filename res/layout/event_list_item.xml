@@ -3,22 +3,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent" android:orientation="vertical">
-    <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent">
+    <TextView
+            android:id="@+id/event_list_item_name"
+            style="@style/text"/>
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
         <TextView
-                android:id="@+id/event_list_item_name"
-                style="@style/text" android:layout_weight="0"/>
+                style="@style/smalltext"
+                android:text="Contact"
+                android:id="@+id/event_list_item_contact_label"/>
+        <TextView
+                android:id="@+id/event_list_item_contact"
+                style="@style/smalltext.italic"
+                android:layout_toRightOf="@id/event_list_item_contact_label"/>
+    </RelativeLayout>
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TextView
+                style="@style/smalltext"
+                android:text="Location"
+                android:id="@+id/event_list_item_location_label"/>
         <TextView
                 android:id="@+id/event_list_item_location"
-                style="@style/text" android:layout_weight="1" android:layout_gravity="right" />
-    </LinearLayout>
-
-    <TextView
-            android:id="@+id/event_list_item_contact"
-            style="@style/text"/>
+                style="@style/smalltext.italic"
+                android:layout_toRightOf="@id/event_list_item_location_label"/>
+    </RelativeLayout>
     <TextView
             android:id="@+id/event_list_item_message"
-            style="@style/smalltext"/>
-
+            style="@style/smalltext.italic"/>
 </LinearLayout>

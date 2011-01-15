@@ -31,7 +31,6 @@ public class ContactRepository {
         try {
             cursor = contentResolver.query(Phone.CONTENT_URI, new String[]{Phone.NUMBER, Phone.TYPE}, Phone.RAW_CONTACT_ID + " = ?", new String[]{rawId}, null);
             while (cursor.moveToNext()) {
-                if (cursor.getString(1).equals(Phone.TYPE_MOBILE)) return cursor.getString(0);
             }
             return null;
         } finally {

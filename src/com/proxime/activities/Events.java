@@ -83,7 +83,7 @@ public class Events extends Activity {
 
         eventsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                long id = ((EventListAdapter.ViewHolder) view.getTag()).id;
+                long id = ((EventListAdapter.EventViewHolder) view.getTag()).id;
                 startActivity(new Intent(getApplicationContext(), ViewEvent.class).putExtra("event_id", id));
             }
         });

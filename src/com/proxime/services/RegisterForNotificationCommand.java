@@ -29,12 +29,12 @@ public class RegisterForNotificationCommand implements Command {
     }
 
     private void addProximityAlert(PendingIntent pendingIntent) {
-        Location location = event.getLocation();
-        locationManager.addProximityAlert(location.getLatitude(), location.getLongitude(), location.getSpan(), DOES_NOT_EXPIRE, pendingIntent);
+        Location loc = event.getLocation();
+        locationManager.addProximityAlert(loc.getLatitude(), loc.getLongitude(), loc.getSpan(), DOES_NOT_EXPIRE, pendingIntent);
     }
 
     private PendingIntent createPendingEvent() {
-        Intent intent = new Intent(context, LocationTracker.class);
+        Intent intent = new Intent(context, LocationTracker.class).putExtra("event_id",event.getId());
         return PendingIntent.getService(context, NOTIFY_LOCATION_PROXIMITY, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 }

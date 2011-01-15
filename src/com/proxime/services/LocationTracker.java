@@ -25,6 +25,7 @@ public class LocationTracker extends Service {
         final Bundle extras = intent.getExtras();
         final String action = extras.getString("action");
         if(action == null) return new NotifyProximityCommand(extras,eventRepository,getApplicationContext());
+        if(action.equals("log")) return new NullCommand();
         if(action.equals("add")) return new RegisterForNotificationCommand(extras,getApplicationContext());
         throw new RuntimeException();
     }
@@ -33,5 +34,6 @@ public class LocationTracker extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
 
 }

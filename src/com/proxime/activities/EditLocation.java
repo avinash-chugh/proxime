@@ -21,6 +21,7 @@ public class EditLocation extends Activity {
 
     private ProgressDialog progressDialog;
     private int OBTAIN_LOCATION = 1;
+    private LocationManager manager;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -56,6 +57,7 @@ public class EditLocation extends Activity {
 
     private void setDependencies() {
         locationRepository = new LocationRepository(this);
+        manager = (LocationManager) getSystemService(LOCATION_SERVICE);
     }
 
     @Override
@@ -113,7 +115,6 @@ public class EditLocation extends Activity {
             saveLocation();
             return;
         }
-        LocationManager manager = (LocationManager) getSystemService(LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(android.location.Location mapPlace) {
                 location.setLatitude(mapPlace.getLatitude());
@@ -131,7 +132,8 @@ public class EditLocation extends Activity {
             public void onProviderDisabled(String s) {
             }
         };
-        manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 50, locationListener);
+        String provider = isGPSEnabled() ? LocationManager.GPS_PROVIDER : LocationManager.NETWORK_PROVIDER;
+        manager.requestLocationUpdates(provider, 0, 0, locationListener);
     }
 
     private int getSpan() {
@@ -152,5 +154,9 @@ public class EditLocation extends Activity {
 
     private void setText(int id, String text) {
         ((TextView) findViewById(id)).setText(text);
+    }
+
+    public boolean isGPSEnabled() {
+        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 }
