@@ -8,12 +8,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import com.proxime.R;
 import com.proxime.entities.Location;
+import com.proxime.maps.GeoCoderServiceUtility;
 import com.proxime.repositories.LocationRepository;
+import org.json.JSONException;
 
-public class EditLocation extends Activity {
+import java.util.List;
+
+public class EditLocation extends Activity
+{
     private boolean useMap;
     private Location location;
     private LocationRepository locationRepository;
@@ -37,6 +44,18 @@ public class EditLocation extends Activity {
         setDependencies();
         setDefaultLocation();
         loadLocation();
+
+        try
+        {
+            List<String> possibleAddresses = new GeoCoderServiceUtility().getFormattedAddress("Indiranagar");
+            ListView eventsView = (ListView) findViewById(R.id.searchResultsList);
+            eventsView.setTextFilterEnabled(true);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, possibleAddresses);
+            eventsView.setAdapter(adapter);
+        } catch (JSONException e)
+        {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
     private void setDefaultLocation()   {
@@ -50,8 +69,8 @@ public class EditLocation extends Activity {
         location = locationRepository.load(id);
 
         setTitle(location.getName());
-        setText(R.id.edit_location_name, location.getName());
-        if (location.getSpan() > 0) setText(R.id.edit_location_span, Integer.toString(location.getSpan()));
+
+        //if (location.getSpan() > 0) setText(R.id.edit_location_span, Integer.toString(location.getSpan()));
     }
 
     private void setDependencies() {
@@ -66,24 +85,18 @@ public class EditLocation extends Activity {
             double longitude = data.getDoubleExtra("longitude", 0);
             location.setLatitude(latitude);
             location.setLongitude(longitude);
-            ((TextView) findViewById(R.id.formattedAddress)).setText(data.getStringExtra("formattedAddress"));
+            //((TextView) findViewById(R.id.formattedAddress)).setText(data.getStringExtra("formattedAddress"));
         }
     }
 
     private void hookUpListeners() {
 
-        findViewById(R.id.addLocation).setOnClickListener(new View.OnClickListener(){
-
-            public void onClick(View view)
-            {
-                //String geoUriString = getResources().getString(R.string.map_location);
-//                Uri geoUri = Uri.parse("geo:0,180?z=1");
-//                Intent mapCall = new Intent(Intent.ACTION_VIEW, geoUri);
-//                startActivityForResult(mapCall,MAP_REQUEST_CODE);
-
-                startActivityForResult(new Intent(getApplicationContext(), PickLocation.class), MAP_REQUEST_CODE);
-            }
-        });
+//        findViewById(R.id.addLocation).setOnClickListener(new View.OnClickListener(){
+//            public void onClick(View view)
+//            {
+//                startActivityForResult(new Intent(getApplicationContext(), PickLocation.class), MAP_REQUEST_CODE);
+//            }
+//        });
         findViewById(R.id.save_location).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 saveLocation();
@@ -94,12 +107,21 @@ public class EditLocation extends Activity {
                 finish();
             }
         });
+        findViewById(R.id.searchLocationButton).setOnClickListener(new View.OnClickListener()   {
+            public void onClick(View view)
+            {
+
+
+
+
+            }
+        });
     }
 
     private void saveLocation() {
-        location.setName(getLocationName());
-        location.setSpan(getSpan());
-        
+//        location.setName(getLocationName());
+//        location.setSpan(getSpan());
+
         locationRepository.save(location);
         setResult(RESULT_OK, new Intent().putExtra("location", location));
         finish();
@@ -112,6 +134,8 @@ public class EditLocation extends Activity {
     private String getLocationName() {
         return getViewText(R.id.edit_location_name);
     }
+
+
 
     public String getViewText(int resourceId) {
         return ((TextView) findViewById(resourceId)).getText().toString();

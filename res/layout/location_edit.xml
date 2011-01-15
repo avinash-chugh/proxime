@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-              android:orientation="vertical">
+              android:orientation="vertical"
+             >
     <ScrollView
             android:layout_height="fill_parent"
             android:layout_width="fill_parent"
@@ -12,53 +12,30 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-            <RelativeLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="fill_parent">
-                <TextView
-                        android:id="@+id/edit_location_name_label"
-                        android:text="@string/name"
-                        android:layout_width="wrap_content"
-                        style="@style/caption"/>
-                <EditText
-                        android:id="@+id/edit_location_name"
-                        style="@style/textbox"
-                        android:layout_width="fill_parent"
-                        android:layout_toRightOf="@id/edit_location_name_label"
-                        />
-            </RelativeLayout>
-            <RelativeLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="fill_parent">
-                <TextView
-                        android:id="@+id/edit_location_span_label"
-                        android:text="@string/span"
-                        android:layout_width="wrap_content"
-                        style="@style/caption"/>
-                <EditText
-                        android:id="@+id/edit_location_span"
-                        style="@style/textbox"
-                        android:layout_width="fill_parent"
-                        android:layout_toRightOf="@id/edit_location_span_label"
-                        android:numeric="integer"
-                        />
-            </RelativeLayout>
+=
            <LinearLayout
-                   android:layout_width="fill_parent"
-                   android:layout_height="fill_parent"
-                    android:orientation="vertical"
-           >
-               <Button
-                       android:id="@+id/addLocation"
-                       android:layout_width="fill_parent"
-                       android:layout_height="wrap_content"
-                       android:text="Get Location from Map">
-               </Button>
-               <TextView android:id="@+id/formattedAddress"
-                         android:layout_width="fill_parent"
-                         android:layout_height="wrap_content"/>
-
-
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/darker_gray"
+                >
+                        <EditText android:id="@+id/searchTextBoxForLocation"
+                        android:layout_width="250px"
+                        android:layout_height="wrap_content"
+                                android:text="Type in a location"/>
+                        <Button android:id="@+id/searchLocationButton"
+                                android:layout_width="50px"
+                                android:layout_height="wrap_content"
+                                android:text="Find"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/darker_gray">
+                <ListView
+                                android:id="@+id/searchResultsList"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                />
            </LinearLayout>
         </LinearLayout>
     </ScrollView>
