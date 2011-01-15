@@ -127,13 +127,13 @@ public class EditLocation extends Activity
         finish();
     }
 
-    private int getSpan() {
-        return new Integer(getViewText(R.id.edit_location_span));
-    }
-
-    private String getLocationName() {
-        return getViewText(R.id.edit_location_name);
-    }
+//    private int getSpan() {
+//        return new Integer(getViewText(R.id.edit_location_span));
+//    }
+//
+//    private String getLocationName() {
+//        return getViewText(R.id.edit_location_name);
+//    }
 
 
 
