@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class GeoCoderServiceUtility
@@ -21,7 +22,7 @@ public class GeoCoderServiceUtility
        return getGeoCoderResponse(point).getFormattedAddress();
     }
 
-    public ArrayList<String> getFormattedAddress(String address) throws JSONException
+    public List<String> getFormattedAddress(String address) throws JSONException
     {
         ArrayList<String> toReturn = new ArrayList<String>();
 

@@ -45,17 +45,7 @@ public class EditLocation extends Activity
         setDefaultLocation();
         loadLocation();
 
-        try
-        {
-            List<String> possibleAddresses = new GeoCoderServiceUtility().getFormattedAddress("Indiranagar");
-            ListView eventsView = (ListView) findViewById(R.id.searchResultsList);
-            eventsView.setTextFilterEnabled(true);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, possibleAddresses);
-            eventsView.setAdapter(adapter);
-        } catch (JSONException e)
-        {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+
     }
 
     private void setDefaultLocation()   {
@@ -110,10 +100,17 @@ public class EditLocation extends Activity
         findViewById(R.id.searchLocationButton).setOnClickListener(new View.OnClickListener()   {
             public void onClick(View view)
             {
-
-
-
-
+                try
+                {
+                List<String> possibleAddresses = new GeoCoderServiceUtility().getFormattedAddress(getSearchString());
+                ListView eventsView = (ListView) findViewById(R.id.searchResultsList);
+                eventsView.setTextFilterEnabled(true);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_list_item_1, possibleAddresses);
+                eventsView.setAdapter(adapter);
+                } catch (JSONException e)
+                    {
+                    e.printStackTrace();
+                    }
             }
         });
     }
@@ -147,5 +144,10 @@ public class EditLocation extends Activity
 
     public boolean isGPSEnabled() {
         return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+    public String getSearchString()
+    {
+        return ((TextView)findViewById(R.id.searchTextBoxForLocation)).getText().toString();
     }
 }
