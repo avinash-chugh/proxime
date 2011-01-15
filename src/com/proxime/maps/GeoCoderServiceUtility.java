@@ -19,25 +19,32 @@ public class GeoCoderServiceUtility
 
     public String getFormattedAddress(GeoPoint point) throws JSONException
     {
-       return getGeoCoderResponse(point).getFormattedAddress();
+       return getGeoCoderResponse(point).oldGetFormattedAddress();
     }
 
     public List<String> getFormattedAddress(String address) throws JSONException
     {
         ArrayList<String> toReturn = new ArrayList<String>();
+        String urlToConnect = getQueryStringForResquest(address);
+        JSONObject jsonResponse = RestJsonClient.connect(urlToConnect);
+
+        return new GeoCoderResponse(jsonResponse).oldGetFormattedAddresses();
+    }
+
+    public List<GeoCoderResponse> getFormattedAddresses(String address) throws JSONException
+    {
+        List<GeoCoderResponse> responseObjects = new ArrayList<GeoCoderResponse>();
 
         String urlToConnect = getQueryStringForResquest(address);
         JSONObject jsonResponse = RestJsonClient.connect(urlToConnect);
 
-        JSONArray results = jsonResponse.getJSONArray("results");
-        for (int i= 0;i<results.length();i++)   {
-            JSONObject result = (JSONObject) results.get(i);
-            String formattedAddress = result.getString("formatted_address");
-            toReturn.add(formattedAddress);
+        JSONArray resultObjects = jsonResponse.getJSONArray("results");
+
+        for (int i=0;i<resultObjects.length();i++)  {
+            responseObjects.add(new GeoCoderResponse((JSONObject) resultObjects.get(i)));
         }
 
-
-        return toReturn;
+        return responseObjects;
     }
 
 
