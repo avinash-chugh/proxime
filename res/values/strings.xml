@@ -33,4 +33,7 @@
     	&lt;b&gt;The source code is available here:&lt;/b&gt;&lt;br /&gt;
     	https://github.com/avinash-chugh/proxime
     </string>
+    <string name="event_kind_title">What do you want to do ?</string>
+    <string name="notify_self">Notify Self</string>
+    <string name="send_message">Send Message</string>
 </resources>

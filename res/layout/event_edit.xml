@@ -27,7 +27,23 @@
                         android:layout_toRightOf="@id/edit_event_name_label"
                         />
             </RelativeLayout>
-            <RelativeLayout android:layout_height="wrap_content" android:layout_width="fill_parent">
+            <TextView
+                    android:text="@string/event_kind_title"
+                    style="@style/caption"/>
+            <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                <RadioButton android:id="@+id/edit_event_notify_self"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="@string/notify_self"/>
+                <RadioButton android:id="@+id/edit_event_send_message"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="@string/send_message"/>
+            </RadioGroup>
+            <RelativeLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/edit_event_contact_view_group">
                 <TextView
                         android:id="@+id/edit_event_contacts_title"
                         android:text="@string/contacts_title"
@@ -67,6 +83,7 @@
                     style="@style/text"
                     android:id="@+id/edit_event_location"/>
 
+
             <TextView
                     android:text="@string/message_title"
                     style="@style/caption"/>
@@ -78,6 +95,7 @@
                     android:singleLine="false" android:lines="5"
                     android:layout_marginLeft="10dip" android:layout_marginRight="10dip"
                     />
+
 
         </LinearLayout>
     </ScrollView>

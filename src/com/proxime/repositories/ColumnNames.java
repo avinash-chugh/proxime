@@ -4,6 +4,7 @@ public interface ColumnNames {
     static final String NAME = "name";
     static final String ID = "id";
     static final String MESSAGE = "message";
+    static final String EVENT_TYPE = "event_type";
     static final String LOCATION_ID = "location_id";
     static final String CONTACT_ID = "contact_id";
     static final String SPAN = "span";

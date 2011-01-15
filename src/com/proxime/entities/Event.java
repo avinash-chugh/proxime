@@ -10,8 +10,13 @@ public class Event implements Entity {
     private String name;
     private String message;
     private long id;
+    public static final int NOTIFY_SELF = 1;
+    public static final int SEND_MESSAGE = 2;
+    private int eventType;
+    private int type;
 
-    public Event() {}
+    public Event() {
+    }
 
     public boolean hasContact() {
         return contact != null;
@@ -61,6 +66,15 @@ public class Event implements Entity {
         return id;
     }
 
+    public void setType(int eventType) {
+        this.eventType = eventType;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+
     //Catering to Parcelable interface
 
     public Event(Parcel in) {
@@ -77,7 +91,7 @@ public class Event implements Entity {
         parcel.writeString(name);
         parcel.writeString(message);
         parcel.writeParcelable(contact, parcelFlags);
-        parcel.writeParcelable(location,parcelFlags);
+        parcel.writeParcelable(location, parcelFlags);
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
@@ -95,6 +109,9 @@ public class Event implements Entity {
     }
 
     public boolean isValidForNotification() {
-        return contact != null && location != null && location.isValid() && !(message.length() == 0);
+        if (eventType != Event.NOTIFY_SELF && contact == null) return false;
+        return location != null && location.isValid() && !(message.length() == 0);
     }
+
+
 }

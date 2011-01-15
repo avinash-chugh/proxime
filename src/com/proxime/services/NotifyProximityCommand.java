@@ -28,20 +28,31 @@ public class NotifyProximityCommand implements Command {
     private void NotifyEvent(long eventId, boolean approaching) {
         if(!approaching) return;
         Event event = eventRepository.load(eventId);
-        SendSMS(event);
-        log("You are approaching " + event.getLocation().getName());
+        if(event.getType() == Event.SEND_MESSAGE){
+            SendSMS(event);
+        }
+        else
+        {
+            NotifySelf(event);
+        }
+
+    }
+
+    private void NotifySelf(Event event) {
+       log(event.getMessage());
     }
 
     private void SendSMS(Event event) {
         SmsManager.getDefault().sendTextMessage(event.getContact().getPhoneNumber(), null,event.getMessage(),null,null);
+        log(event.getContact().getName() + " is messaged that " + event.getMessage());
     }
 
     public void log(String message) {
         Notification notification = new Notification(R.drawable.alert, "Proxime", System.currentTimeMillis());
         PendingIntent pendingIntent = PendingIntent.getService(context, 23, new Intent(context, LocationTracker.class).putExtra("action", "log"), 0);
         notification.setLatestEventInfo(context, "Proxime", message, pendingIntent);
+        notification.defaults |= Notification.DEFAULT_ALL;
         notificationManager.notify(1, notification);
-
     }
 
     public void Execute() {

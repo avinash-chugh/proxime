@@ -74,7 +74,7 @@ public class EventRepository implements ColumnNames
         Event result = new Event();
         result.setId(id);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String[] columns = {NAME, MESSAGE, CONTACT_ID, LOCATION_ID};
+        String[] columns = {NAME, MESSAGE, CONTACT_ID, LOCATION_ID, EVENT_TYPE};
         String selection = ID + " = ?";
         String[] selectionArgs = {Long.toString(id)};
         Cursor cursor = db.query(CustomDBHelper.EVENTS_TABLE, columns, selection, selectionArgs, null, null, null, null);
