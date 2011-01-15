@@ -3,7 +3,6 @@ package com.proxime.activities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -106,42 +105,8 @@ public class EditLocation extends Activity {
         finish();
     }
 
-    private void determineLocation() {
-        if (isDebug()) {
-            location.setLatitude(1.0);
-            location.setLongitude(1.0);
-
-            handler.sendEmptyMessage(OBTAIN_LOCATION);
-            saveLocation();
-            return;
-        }
-        LocationListener locationListener = new LocationListener() {
-            public void onLocationChanged(android.location.Location mapPlace) {
-                location.setLatitude(mapPlace.getLatitude());
-                location.setLongitude(mapPlace.getLongitude());
-                handler.sendEmptyMessage(OBTAIN_LOCATION);
-                saveLocation();
-            }
-
-            public void onStatusChanged(String s, int i, Bundle bundle) {
-            }
-
-            public void onProviderEnabled(String s) {
-            }
-
-            public void onProviderDisabled(String s) {
-            }
-        };
-        String provider = isGPSEnabled() ? LocationManager.GPS_PROVIDER : LocationManager.NETWORK_PROVIDER;
-        manager.requestLocationUpdates(provider, 0, 0, locationListener);
-    }
-
     private int getSpan() {
         return new Integer(getViewText(R.id.edit_location_span));
-    }
-
-    private boolean isDebug() {
-        return false;
     }
 
     private String getLocationName() {
