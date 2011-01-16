@@ -3,7 +3,7 @@
           package="com.proxime" android:versionCode="1" android:versionName="1.0">
     <uses-sdk android:targetSdkVersion="8" />
     <supports-screens android:anyDensity="true"/>
-    <application android:label="Proxime" android:icon="@drawable/icon" android:debuggable="true">
+    <application android:label="Proxime" android:icon="@drawable/proxime" android:debuggable="true">
         <activity android:name=".activities.Events"
                   android:label="@string/app_name">
             <intent-filter>
@@ -18,8 +18,8 @@
             <!--</intent-filter>-->
         </activity>
         <activity android:name=".activities.ViewEvent"/>
-        <activity android:name=".activities.PickLocation" android:label="Choose Location" android:theme="@android:style/Theme.Light.NoTitleBar"/>
-        <activity android:name=".activities.Locations" android:label="Choose Location"/>
+        <activity android:name=".activities.PickLocation" android:label="Locations" android:theme="@android:style/Theme.Light.NoTitleBar"/>
+        <activity android:name=".activities.Locations" android:label="Locations"/>
         <activity android:name=".activities.About" android:label="About Proxime"/>
         <activity android:name=".activities.Addresses" android:label="Addresses"/>
         <activity android:name=".activities.EditLocation" android:label="Add Location"/>

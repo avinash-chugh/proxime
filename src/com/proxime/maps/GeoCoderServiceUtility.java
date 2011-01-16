@@ -39,7 +39,6 @@ public class GeoCoderServiceUtility {
         return responseObjects;
     }
 
-
     public String getQueryStringForRequest(String formattedAddress) {
         return String.format(webServiceUrl + "/json?address=%s&sensor=true", removeSpaces(formattedAddress));
     }

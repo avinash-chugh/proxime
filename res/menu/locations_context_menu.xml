@@ -4,6 +4,10 @@
           android:title="@string/menu_edit_location"
           android:icon="@android:drawable/ic_menu_edit"/>
 
+    <item android:id="@+id/rename_location"
+          android:title="@string/menu_rename_location"
+          android:icon="@android:drawable/ic_menu_directions"/>
+
     <item android:id="@+id/delete_location"
           android:title="@string/menu_delete_location"
           android:icon="@android:drawable/ic_menu_delete"/>

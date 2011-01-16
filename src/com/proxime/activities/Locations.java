@@ -20,13 +20,14 @@ import com.proxime.repositories.LocationRepository;
 import java.util.List;
 
 public class Locations extends Activity {
-    private static final int NEW_LOCATION = R.id.add_location;
     private static final int ABOUT_DIALOG = R.id.about_proxime;
     private static final int EDIT_LOCATION = R.id.edit_location;
+    public static final int SET_LOCATION_DIALOG = R.id.add_location;
 
     private ListView locationsView;
     private LocationRepository locationRepository;
     private BaseListAdapter<Location> adapter;
+    private Location location;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +53,7 @@ public class Locations extends Activity {
         Button createButton = (Button) findViewById(R.id.createLocationButton);
         createButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                newLocation();
+                showLocationDialog();
             }
         });
 
@@ -73,12 +74,6 @@ public class Locations extends Activity {
         if (resultCode != RESULT_OK) return;
 
         switch (requestCode) {
-            case NEW_LOCATION: {
-                Location location = getResult(data);
-                showStatus(R.string.toast_location_created, location);
-                adapter.add(location);
-                break;
-            }
             case EDIT_LOCATION: {
                 Location location = getResult(data);
                 showStatus(R.string.toast_location_modified, location);
@@ -106,7 +101,7 @@ public class Locations extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_location: {
-                newLocation();
+                showLocationDialog();
                 break;
             }
             case R.id.view_events: {
@@ -131,11 +126,15 @@ public class Locations extends Activity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        Location location = adapter.getItem(info.position);
+        location = adapter.getItem(info.position);
 
         switch (item.getItemId()) {
             case R.id.edit_location: {
                 editLocation(location.getId());
+                break;
+            }
+            case R.id.rename_location: {
+                showDialog(SET_LOCATION_DIALOG);
                 break;
             }
             case R.id.delete_location: {
@@ -157,17 +156,34 @@ public class Locations extends Activity {
         startActivityForResult(intent, EDIT_LOCATION);
     }
 
+
+    private void showLocationDialog() {
+        location = null;
+        showDialog(SET_LOCATION_DIALOG);
+    }
+
     @Override
     protected Dialog onCreateDialog(int id, Bundle args) {
         switch (id) {
+            case SET_LOCATION_DIALOG: {
+                LocationDialog locationDialog = new LocationDialog(this);
+                locationDialog.setLocationChangeListener(new LocationChangeListener() {
+                    public void change(Location location, boolean isNew) {
+                        if (isNew) {
+                            showStatus(R.string.toast_location_created, location);
+                            adapter.add(location);
+                        }
+                        else {
+                            showStatus(R.string.toast_location_modified, location);
+                            loadLocations();
+                        }
+                    }
+                });
+                return locationDialog.show(location);
+            }
             case ABOUT_DIALOG:
                 return new AboutDialog(this).show();
         }
         return super.onCreateDialog(id, args);
-    }
-
-    private void newLocation() {
-        Intent intent = new Intent(this, EditLocation.class);
-        startActivityForResult(intent, NEW_LOCATION);
     }
 }

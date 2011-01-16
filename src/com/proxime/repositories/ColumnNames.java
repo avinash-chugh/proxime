@@ -10,4 +10,5 @@ public interface ColumnNames {
     static final String SPAN = "span";
     static final String LATITUDE = "latitude";
     static final String LONGITUDE = "longitude";
+    static final String ADDRESS = "address";
 }

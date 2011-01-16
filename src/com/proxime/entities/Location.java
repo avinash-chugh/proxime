@@ -9,23 +9,26 @@ public class Location implements Entity {
     private double latitude;
     private double longitude;
     private int span;
+    private String address;
+    private static final int DEFAULT_SPAN = 25;
 
 
-
-    public Location(long id, String name, double latitude, double longitude, int span) {
-        this.id = id;
-        this.name = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.span = span;
+    public Location(long id, String name) {
+        setId(id);
+        setName(name);
+        setLatitude(0);
+        setLongitude(0);
+        setSpan(DEFAULT_SPAN);
+        setAddress(new String(""));
     }
 
-    public Location(String name, double latitude, double longitude, int span) {
-        this(0, name, latitude, longitude, span);
-    }
-
-    public Location(int id, String name) {
-        this(id, name, 0.0, 0.0, 0);
+    public Location(long id, String name, double latitude, double longitude, int span, String address) {
+        setId(id);
+        setName(name);
+        setLatitude(latitude);
+        setLongitude(longitude);
+        setSpan(span);
+        setAddress(address);
     }
 
     public String getName() {
@@ -72,6 +75,14 @@ public class Location implements Entity {
         this.span = span;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public int describeContents() {
         return 0;
     }
@@ -82,6 +93,7 @@ public class Location implements Entity {
         parcel.writeInt(span);
         parcel.writeDouble(latitude);
         parcel.writeDouble(longitude);
+        parcel.writeString(address);
     }
 
     public Location(Parcel in) {
@@ -90,6 +102,7 @@ public class Location implements Entity {
         span = in.readInt();
         latitude = in.readDouble();
         longitude = in.readDouble();
+        address = in.readString();
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {

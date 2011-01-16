@@ -43,7 +43,7 @@
         <Button android:id="@+id/searchLocationButton"
                 android:layout_width="50dip"
                 android:layout_height="wrap_content"
-                android:text="@string/find_location"
+                android:drawableRight="@drawable/ic_btn_search"
                 />
     </LinearLayout>
 

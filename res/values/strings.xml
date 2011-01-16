@@ -7,6 +7,7 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="locations_title">Location</string>
+    <string name="new_location">New Location</string>
     <string name="edit_event_add_location">Add</string>
     <string name="message_title">Message</string>
     <string name="location_name">Name</string>
@@ -21,6 +22,7 @@
     <string name="menu_events">Events</string>
     <string name="menu_add_location">Add Location</string>
     <string name="menu_edit_location">Edit Location</string>
+    <string name="menu_rename_location">Rename Location</string>
     <string name="menu_delete_location">Delete Location</string>
 
     <!-- about dialog -->
