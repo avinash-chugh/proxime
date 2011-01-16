@@ -58,7 +58,7 @@ public class EditLocation extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MAP_REQUEST_CODE) {
+        if (requestCode == MAP_REQUEST_CODE && data!=null) {
             double latitude = data.getDoubleExtra("latitude", 0);
             double longitude = data.getDoubleExtra("longitude", 0);
             location.setAddress(data.getStringExtra("formattedAddress"));
