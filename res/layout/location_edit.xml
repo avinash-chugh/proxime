@@ -3,22 +3,36 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:orientation="vertical">
+    <LinearLayout android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:padding="10px">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   android:background="@drawable/rounded_edges"
-                  android:paddingBottom="10px">
+                  >
 
         <TextView android:id="@+id/userSelectedLocation"
-                  android:text="Current Location"
-                  android:layout_width="fill_parent"
+                  android:text=""
+                  android:layout_width="200px"
+                  android:textColor="#FFFFFF"
                   android:layout_height="wrap_content"
+                  android:hint="Select a location"
+                  android:padding="10px"
+                  android:layout_gravity="left"
                 />
+        <ImageButton android:id="@+id/gotoMap"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:src="@drawable/maps_icon"
+                android:layout_gravity="right"/>
     </LinearLayout>
+        </LinearLayout>
 
     <LinearLayout android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
-                    android:background="@android:color/darker_gray">
+                    android:background="@android:color/darker_gray"
+                    android:paddingTop="10px">
 
         <EditText android:id="@+id/searchTextBoxForLocation"
                   android:layout_height="wrap_content"

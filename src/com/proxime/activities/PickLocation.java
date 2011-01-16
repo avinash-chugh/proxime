@@ -1,11 +1,10 @@
 package com.proxime.activities;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.TextView;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
@@ -27,6 +26,7 @@ public class PickLocation extends MapActivity
                 try
                 {
                     formattedAddress = new GeoCoderServiceUtility().getFormattedAddress(geoPoint);
+                    ((TextView)(findViewById(R.id.refinedSearch))).setText(formattedAddress);
                     Intent intent =new Intent();
                     intent.putExtra("formattedAddress",formattedAddress);
                     intent.putExtra("latitude",geoPoint.getLatitudeE6()/1E6);
@@ -49,7 +49,19 @@ public class PickLocation extends MapActivity
         setContentView(R.layout.map);
         MapView mapView = setMapView();
         setOverlays(mapView);
+        setUpInitialCoordinates(mapView);
         hookUpListeners();
+    }
+
+    private void setUpInitialCoordinates(MapView mapView)
+    {
+        double longitude =  (getIntent().getDoubleExtra("longitude", 0));
+        double latitude =   (getIntent().getDoubleExtra("latitude", 0));
+        String formattedAddress = (getIntent().getStringExtra("formattedAddress"));
+        ((TextView)(findViewById(R.id.refinedSearch))).setText(formattedAddress);
+        GeoPoint intiailLocation = new GeoPoint(((int)( latitude*1E6)),((int)( longitude*1E6)));
+        mapView.getController().setCenter(intiailLocation);
+        mapView.getController().setZoom(18);
     }
 
     private void setOverlays(MapView mapView)
@@ -71,26 +83,13 @@ public class PickLocation extends MapActivity
 
     private void hookUpListeners()
     {
-        View.OnClickListener onClickListener = new View.OnClickListener()
-        {
+         ((Button)(findViewById(R.id.setLocationFromMap))).setOnClickListener(new View.OnClickListener(){
 
-            public void onClick(View view)
-            {
-                final CharSequence[] items = {"Forum", "Green", "Blue"};
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-                builder.setTitle("Pick a color");
-                builder.setItems(items, new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int item)
-                    {
-                        Toast.makeText(getApplicationContext(), items[item], Toast.LENGTH_SHORT).show();
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
-            }
-        };
-        findViewById(R.id.searchLocationOnMap).setOnClickListener(onClickListener);
+             public void onClick(View view)
+             {
+                 finish();
+             }
+         });
 
     }
 

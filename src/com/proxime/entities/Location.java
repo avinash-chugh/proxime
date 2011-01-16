@@ -10,6 +10,8 @@ public class Location implements Entity {
     private double longitude;
     private int span;
 
+
+
     public Location(long id, String name, double latitude, double longitude, int span) {
         this.id = id;
         this.name = name;

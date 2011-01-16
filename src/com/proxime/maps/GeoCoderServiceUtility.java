@@ -57,7 +57,7 @@ public class GeoCoderServiceUtility {
     private String getQueryStringForRequest(GeoPoint point) {
         double latitude = point.getLatitudeE6() / 1E6;
         double longitude = point.getLongitudeE6() / 1E6;
-        return String.format("/json?latlng=%d,%d&sensor=true", latitude, longitude);
+        return String.format("/json?latlng=%f,%f&sensor=true", latitude, longitude);
     }
 }
 

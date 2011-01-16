@@ -8,10 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 import com.proxime.R;
 import com.proxime.entities.Location;
 import com.proxime.maps.GeoCoderResponse;
@@ -60,8 +57,6 @@ public class EditLocation extends Activity
         location = locationRepository.load(id);
 
         setTitle(location.getName());
-
-        //if (location.getSpan() > 0) setText(R.id.edit_location_span, Integer.toString(location.getSpan()));
     }
 
     private void setDependencies() {
@@ -76,18 +71,13 @@ public class EditLocation extends Activity
             double longitude = data.getDoubleExtra("longitude", 0);
             location.setLatitude(latitude);
             location.setLongitude(longitude);
-            //((TextView) findViewById(R.id.formattedAddress)).setText(data.getStringExtra("formattedAddress"));
+            ((TextView)(findViewById(R.id.userSelectedLocation))).setText((data.getStringExtra("formattedAddress")));
+            ((ArrayAdapter<GeoCoderResponse>)((ListView)(findViewById(R.id.searchResultsList))).getAdapter()).clear();
+            ((EditText)(findViewById(R.id.searchTextBoxForLocation))).setText("");
         }
     }
 
     private void hookUpListeners() {
-
-//        findViewById(R.id.addLocation).setOnClickListener(new View.OnClickListener(){
-//            public void onClick(View view)
-//            {
-//                startActivityForResult(new Intent(getApplicationContext(), PickLocation.class), MAP_REQUEST_CODE);
-//            }
-//        });
         findViewById(R.id.save_location).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 saveLocation();
@@ -119,22 +109,34 @@ public class EditLocation extends Activity
         {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
             {
-                //long id = ((EventListAdapter.EventViewHolder) view.getTag()).id;
-                //Temporary. Will be removed.<vineethv>
                 GeoCoderResponse item = (GeoCoderResponse) adapterView.getAdapter().getItem(i);
                 try
                 {
                     ((TextView)(findViewById(R.id.userSelectedLocation))).setText(item.getFormattedAddress());
-                    location.setLatitude(new Double(item.getLatitude())/1E6);
-                    location.setLongitude(new Double(item.getLongitude())/1E6);
+                    location.setLatitude(new Double(item.getLatitude()));
+                    location.setLongitude(new Double(item.getLongitude()));
                 } catch (JSONException e)
                 {
                     e.printStackTrace();
                 }
-                //startActivity(new Intent(getApplicationContext(), ViewEvent.class).putExtra("event_id", id));
+            }
+        });
+
+        findViewById(R.id.gotoMap).setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View view)
+            {
+                if (((TextView)findViewById(R.id.userSelectedLocation)).getText().equals("")) return;
+                Intent newIntent = new Intent(getApplicationContext(), PickLocation.class);
+                newIntent.putExtra("latitude", location.getLatitude());
+                newIntent.putExtra("longitude", location.getLongitude());
+                newIntent.putExtra("formattedAddress",((TextView)findViewById(R.id.userSelectedLocation)).getText());
+                startActivityForResult(newIntent, MAP_REQUEST_CODE);
             }
         });
     }
+
+
 
     private void saveLocation() {
         location.setName(new Date().toString());
@@ -145,27 +147,6 @@ public class EditLocation extends Activity
         finish();
     }
 
-//    private int getSpan() {
-//        return new Integer(getViewText(R.id.edit_location_span));
-//    }
-//
-//    private String getLocationName() {
-//        return getViewText(R.id.edit_location_name);
-//    }
-
-
-
-    public String getViewText(int resourceId) {
-        return ((TextView) findViewById(resourceId)).getText().toString();
-    }
-
-    private void setText(int id, String text) {
-        ((TextView) findViewById(id)).setText(text);
-    }
-
-    public boolean isGPSEnabled() {
-        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    }
 
     public String getSearchString()
     {
