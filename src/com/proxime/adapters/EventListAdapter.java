@@ -55,13 +55,11 @@ public class EventListAdapter extends BaseListAdapter<Event> {
     }
 
     public static class EventViewHolder {
+        public long id;
         TextView name;
         TextView location;
         TextView message;
         TextView contact;
-        public long id;
         TextView contactLabel;
-
     }
-
 }

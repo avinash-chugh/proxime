@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.proxime.adapters.BaseListAdapter;
@@ -28,6 +31,7 @@ public class Locations extends Activity {
     private LocationRepository locationRepository;
     private BaseListAdapter<Location> adapter;
     private Location location;
+    private EditText searchView;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +70,20 @@ public class Locations extends Activity {
         });
 
         registerForContextMenu(locationsView);
+
+        searchView = (EditText) findViewById(R.id.search_location);
+        searchView.addTextChangedListener(new TextWatcher() {
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int count, int after) {
+                adapter.filter(s.toString());
+            }
+
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
     }
 
     @Override

@@ -6,12 +6,15 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.proxime.R;
@@ -28,6 +31,7 @@ public class Events extends Activity {
     private EventRepository eventRepository;
     private ListView eventsView;
     private EventListAdapter adapter;
+    private EditText searchView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,8 +83,10 @@ public class Events extends Activity {
 
     private void loadEvents() {
         List<Event> events = eventRepository.loadAll();
+
         eventsView = (ListView) findViewById(R.id.eventsList);
         eventsView.setTextFilterEnabled(true);
+
         adapter = new EventListAdapter(this, events);
         eventsView.setAdapter(adapter);
     }
@@ -101,6 +107,19 @@ public class Events extends Activity {
         });
 
         registerForContextMenu(eventsView);
+
+        searchView = (EditText) findViewById(R.id.search_event);
+        searchView.addTextChangedListener(new TextWatcher() {
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int count, int after) {
+                adapter.filter(s.toString());
+            }
+
+            public void afterTextChanged(Editable editable) {
+            }
+        });
     }
 
     @Override
@@ -179,7 +198,6 @@ public class Events extends Activity {
     }
 
     private void newEvent() {
-//        showDialog(0);
         Intent intent = new Intent(this, EditEvent.class);
         startActivityForResult(intent, NEW_EVENT);
     }

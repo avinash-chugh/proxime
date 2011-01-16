@@ -9,24 +9,35 @@ import android.widget.TextView;
 import com.proxime.R;
 import com.proxime.entities.Entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BaseListAdapter<T extends Entity> extends BaseAdapter {
-
     private List<T> data;
+    private List<T> filtered = new ArrayList<T>();
     protected LayoutInflater inflater;
 
     public BaseListAdapter(Context context, List<T> data) {
         this.data = data;
+        copy();
+
         inflater = LayoutInflater.from(context);
     }
 
+    private void copy() {
+        filtered.clear();
+        for (T item : data) {
+            filtered.add(item);
+        }
+        notifyDataSetChanged();
+    }
+
     public int getCount() {
-        return data.size();
+        return filtered.size();
     }
 
     public T getItem(int position) {
-        return data.get(position);
+        return filtered.get(position);
     }
 
     public long getItemId(int position) {
@@ -35,7 +46,7 @@ public class BaseListAdapter<T extends Entity> extends BaseAdapter {
 
     public void add(T item) {
         data.add(item);
-        notifyDataSetChanged();
+        copy();
     }
 
     public View getView(int position, View convertView, ViewGroup viewGroup) {
@@ -59,6 +70,20 @@ public class BaseListAdapter<T extends Entity> extends BaseAdapter {
 
     public void remove(T item) {
         data.remove(item);
+        copy();
+    }
+
+    public void filter(String s) {
+        if (s == null || s.length() == 0) {
+            copy();
+            return;
+        }
+        
+        filtered.clear();
+        for (T item : data) {
+            if (item.getName().contains(s))
+                filtered.add(item);
+        }
         notifyDataSetChanged();
     }
 

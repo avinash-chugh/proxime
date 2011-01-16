@@ -15,7 +15,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/createLocationButton"
                 android:hint="Search Location"
-                android:id="@+id/searchLocation"
+                android:id="@+id/search_location"
                 />
     </RelativeLayout>
     <ListView android:layout_height="wrap_content"
