@@ -13,15 +13,7 @@ public class GeoCoderServiceUtility {
     private static String webServiceUrl = "http://maps.googleapis.com/maps/api/geocode";
 
     public String getFormattedAddress(GeoPoint point) throws JSONException {
-        return getGeoCoderResponse(point).oldGetFormattedAddress();
-    }
-
-    public List<String> getFormattedAddress(String address) throws JSONException {
-        ArrayList<String> toReturn = new ArrayList<String>();
-        String urlToConnect = getQueryStringForRequest(address);
-        JSONObject jsonResponse = RestJsonClient.connect(urlToConnect);
-
-        return new GeoCoderResponse(jsonResponse).oldGetFormattedAddresses();
+        return getGeoCoderResponse(point).getFormattedAddress();
     }
 
     public List<GeoCoderResponse> getFormattedAddresses(String address) throws JSONException {
@@ -47,10 +39,12 @@ public class GeoCoderServiceUtility {
         return formattedAddress.replace(' ', '+');
     }
 
-    public GeoCoderResponse getGeoCoderResponse(GeoPoint point) {
+    public GeoCoderResponse getGeoCoderResponse(GeoPoint point) throws JSONException
+    {
         String urlToConnect = webServiceUrl + getQueryStringForRequest(point);
         JSONObject jsonResponse = RestJsonClient.connect(urlToConnect);
-        return new GeoCoderResponse(jsonResponse);
+        JSONArray resultObjects = jsonResponse.getJSONArray("results");
+        return new GeoCoderResponse(resultObjects.getJSONObject(0));
     }
 
     private String getQueryStringForRequest(GeoPoint point) {

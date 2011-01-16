@@ -1,11 +1,7 @@
 package com.proxime.maps;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class GeoCoderResponse
 {
@@ -16,11 +12,7 @@ public class GeoCoderResponse
         this.jsonResponse = jsonResponse;
     }
 
-    @Deprecated
-    public String oldGetFormattedAddress() throws JSONException
-    {
-        return jsonResponse.getJSONArray("results").getJSONObject(0).getString("formatted_address");
-    }
+
 
     public String getFormattedAddress() throws JSONException{
        return jsonResponse.getString("formatted_address").toString();
@@ -44,18 +36,5 @@ public class GeoCoderResponse
             e.printStackTrace();
         }
         return "";
-    }
-
-    @Deprecated
-    public List<String> oldGetFormattedAddresses()  throws JSONException
-    {
-       List<String> toReturn = new ArrayList<String>();
-        JSONArray results = jsonResponse.getJSONArray("results");
-        for (int i= 0;i<results.length();i++)   {
-            JSONObject result = (JSONObject) results.get(i);
-            String formattedAddress = result.getString("formatted_address");
-            toReturn.add(formattedAddress);
-        }
-        return toReturn;
     }
 }
