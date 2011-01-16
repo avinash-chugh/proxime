@@ -66,7 +66,8 @@ public class EditLocation extends Activity {
             location.setLongitude(longitude);
 
             setText(R.id.userSelectedLocation, data.getStringExtra("formattedAddress"));
-            ((ArrayAdapter<GeoCoderResponse>)((ListView)(findViewById(R.id.searchResultsList))).getAdapter()).clear();
+            ArrayAdapter<GeoCoderResponse> adapter = (ArrayAdapter<GeoCoderResponse>) ((ListView) (findViewById(R.id.searchResultsList))).getAdapter();
+            if (adapter !=null) adapter.clear();
             setText(R.id.searchTextBoxForLocation, "");
         }
     }

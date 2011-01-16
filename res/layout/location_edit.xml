@@ -5,12 +5,27 @@
               android:orientation="vertical">
     <LinearLayout android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
-                  android:padding="10px">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:padding="10px"
+                  android:id="@+id/gotoMap">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   android:background="@drawable/rounded_edges"
+                  android:padding="7px"
                   >
+       <ImageButton android:id="@+id/mapIcon"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:src="@drawable/maps_icon"
+               android:layout_marginRight="5px"
+               android:layout_gravity="center_vertical"/>
+       <TextView android:id = "@+id/userHint"
+                  android:text="Show on map"
+                  android:layout_toRightOf="@id/mapIcon"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+
+                  android:layout_marginTop="-2px"/>
 
         <TextView android:id="@+id/userSelectedLocation"
                   android:text=""
@@ -18,15 +33,13 @@
                   android:textColor="#FFFFFF"
                   android:layout_height="wrap_content"
                   android:hint="Select a location"
-                  android:padding="10px"
-                  android:layout_gravity="left"
+                  android:padding="2px"
+                  android:layout_toRightOf="@id/mapIcon"
+                  android:layout_below="@id/userHint"
                 />
-        <ImageButton android:id="@+id/gotoMap"
-                android:layout_width="40px"
-                android:layout_height="40px"
-                android:src="@drawable/maps_icon"
-                android:layout_gravity="right"/>
-    </LinearLayout>
+
+
+    </RelativeLayout>
         </LinearLayout>
 
     <LinearLayout android:layout_height="wrap_content"
