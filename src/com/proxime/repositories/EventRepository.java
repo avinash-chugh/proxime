@@ -32,6 +32,7 @@ public class EventRepository implements ColumnNames
         ContentValues values = new ContentValues();
         values.put(NAME, event.getName());
         values.put(MESSAGE, event.getMessage());
+        values.put(EVENT_TYPE,event.getType());
         if (event.hasLocation()) values.put(LOCATION_ID, event.getLocation().getId());
         if (event.hasContact()) values.put(CONTACT_ID, event.getContact().getUri().toString());
 
@@ -81,6 +82,7 @@ public class EventRepository implements ColumnNames
         cursor.moveToNext();
         result.setName(cursor.getString(cursor.getColumnIndexOrThrow(NAME)));
         result.setMessage(cursor.getString(cursor.getColumnIndexOrThrow(MESSAGE)));
+        result.setType(cursor.getInt(cursor.getColumnIndexOrThrow(EVENT_TYPE)));
         String contactUri = cursor.getString(cursor.getColumnIndexOrThrow(CONTACT_ID));
         if (contactUri != null)
         {

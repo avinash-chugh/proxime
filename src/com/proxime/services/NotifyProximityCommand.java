@@ -28,12 +28,12 @@ public class NotifyProximityCommand implements Command {
     private void NotifyEvent(long eventId, boolean approaching) {
         if(!approaching) return;
         Event event = eventRepository.load(eventId);
-        if(event.getType() == Event.SEND_MESSAGE){
-            SendSMS(event);
+        if(event.isNotifySelf()){
+            NotifySelf(event);
         }
         else
         {
-            NotifySelf(event);
+            SendSMS(event);
         }
 
     }

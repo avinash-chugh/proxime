@@ -96,7 +96,7 @@ public class EditEvent extends Activity {
                 event.setName(getViewText(R.id.edit_event_name));
                 event.setMessage(getViewText(R.id.edit_event_message));
                 eventRepository.save(event);
-                
+
                 startService(new Intent(EditEvent.this, LocationTracker.class).putExtra("event", event).putExtra("action", "add"));
                 setResult(RESULT_OK, new Intent().putExtra("event", event));
                 finish();
@@ -106,12 +106,12 @@ public class EditEvent extends Activity {
         View.OnClickListener radioListener = new View.OnClickListener() {
             public void onClick(View view) {
                 int id = view.getId();
-                if(id == R.id.edit_event_notify_self){
-                   event.setType(Event.NOTIFY_SELF);
-                   setVisibilityForContact(View.GONE);
-                }else {
-                   event.setType(Event.SEND_MESSAGE);
-                   setVisibilityForContact(View.VISIBLE);
+                if (id == R.id.edit_event_notify_self) {
+                    event.setType(Event.NOTIFY_SELF);
+                    setVisibilityForContact(View.GONE);
+                } else {
+                    event.setType(Event.SEND_MESSAGE);
+                    setVisibilityForContact(View.VISIBLE);
                 }
             }
 
@@ -123,8 +123,9 @@ public class EditEvent extends Activity {
         };
         findViewById(R.id.edit_event_notify_self).setOnClickListener(radioListener);
         findViewById(R.id.edit_event_send_message).setOnClickListener(radioListener);
-        RadioButton button = (RadioButton) findViewById(R.id.edit_event_send_message);
+        RadioButton button = (RadioButton) findViewById(R.id.edit_event_notify_self);
         button.setChecked(true);
+        radioListener.onClick(button);
     }
 
 
@@ -140,6 +141,6 @@ public class EditEvent extends Activity {
     }
 
     private void setText(int id, String text) {
-        ((TextView)findViewById(id)).setText(text);
+        ((TextView) findViewById(id)).setText(text);
     }
 }

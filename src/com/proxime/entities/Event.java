@@ -12,7 +12,6 @@ public class Event implements Entity {
     private long id;
     public static final int NOTIFY_SELF = 1;
     public static final int SEND_MESSAGE = 2;
-    private int eventType;
     private int type;
 
     public Event() {
@@ -67,7 +66,7 @@ public class Event implements Entity {
     }
 
     public void setType(int eventType) {
-        this.eventType = eventType;
+        this.type = eventType;
     }
 
     public int getType() {
@@ -81,6 +80,7 @@ public class Event implements Entity {
         id = in.readLong();
         name = in.readString();
         message = in.readString();
+        type = in.readInt();
         contact = in.readParcelable(Contact.class.getClassLoader()); //throws ClassNotFoundException if passed null
         location = in.readParcelable(Location.class.getClassLoader());
     }
@@ -90,6 +90,7 @@ public class Event implements Entity {
         parcel.writeLong(id);
         parcel.writeString(name);
         parcel.writeString(message);
+        parcel.writeInt(type);
         parcel.writeParcelable(contact, parcelFlags);
         parcel.writeParcelable(location, parcelFlags);
     }
@@ -109,9 +110,12 @@ public class Event implements Entity {
     }
 
     public boolean isValidForNotification() {
-        if (eventType != Event.NOTIFY_SELF && contact == null) return false;
+        if (!isNotifySelf() && contact == null) return false;
         return location != null && location.isValid() && !(message.length() == 0);
     }
 
+    public boolean isNotifySelf() {
+        return type == Event.NOTIFY_SELF;
+    }
 
 }
