@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 import com.proxime.R;
 import com.proxime.adapters.EventListAdapter;
 import com.proxime.entities.Event;
@@ -54,15 +55,26 @@ public class Events extends Activity {
 
         switch (requestCode) {
             case NEW_EVENT:  {
-                Event event = (Event) data.getExtras().get("event");
+                Event event = getResult(data);
+                showStatus(R.string.toast_event_created, event);
                 adapter.add(event);
                 break;
             }
             case EDIT_EVENT: {
+                Event event = getResult(data);
+                showStatus(R.string.toast_event_modified, event);
                 loadEvents();
                 break;
             }
         }
+    }
+
+    private Event getResult(Intent data) {
+        return (Event) data.getExtras().get("event");
+    }
+
+    private void showStatus(int message, Event event) {
+        Toast.makeText(this, getString(message, event.getName()), Toast.LENGTH_SHORT).show();
     }
 
     private void loadEvents() {
@@ -180,6 +192,6 @@ public class Events extends Activity {
     private void deleteEvent(Event event) {
         eventRepository.delete(event.getId());
         adapter.remove(event);
-        loadEvents();
+        showStatus(R.string.toast_event_removed, event);
     }
 }

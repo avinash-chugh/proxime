@@ -47,8 +47,6 @@ public class EditLocation extends Activity
         setDependencies();
         setDefaultLocation();
         loadLocation();
-
-
     }
 
     private void setDefaultLocation()   {

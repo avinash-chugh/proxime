@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 import com.proxime.adapters.BaseListAdapter;
 import com.proxime.R;
 import com.proxime.entities.Location;
@@ -73,15 +74,26 @@ public class Locations extends Activity {
 
         switch (requestCode) {
             case NEW_LOCATION: {
-                Location location = (Location) data.getExtras().get("location");
+                Location location = getResult(data);
+                showStatus(R.string.toast_location_created, location);
                 adapter.add(location);
                 break;
             }
             case EDIT_LOCATION: {
+                Location location = getResult(data);
+                showStatus(R.string.toast_location_modified, location);
                 loadLocations();
                 break;
             }
         }
+    }
+
+    private Location getResult(Intent data) {
+        return (Location) data.getExtras().get("location");
+    }
+
+    private void showStatus(int message, Location location) {
+        Toast.makeText(this, getString(message, location.getName()), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -137,6 +149,7 @@ public class Locations extends Activity {
     private void deleteLocation(Location location) {
         locationRepository.delete(location.getId());
         adapter.remove(location);
+        showStatus(R.string.toast_location_removed, location);
     }
 
     private void editLocation(long id) {

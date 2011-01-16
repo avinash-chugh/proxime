@@ -33,7 +33,20 @@
     	&lt;b&gt;The source code is available here:&lt;/b&gt;&lt;br /&gt;
     	https://github.com/avinash-chugh/proxime
     </string>
+
     <string name="event_kind_title">What do you want to do ?</string>
     <string name="notify_self">Notify Self</string>
     <string name="send_message">Send Message</string>
+
+    <!-- toast messages -->
+    <string name="toast_event_created">The event \'%s\' has been created</string>
+    <string name="toast_event_modified">Your changes to the event \'%s\' has been saved</string>
+    <string name="toast_event_removed">The event \'%s\' has been removed</string>
+    <string name="toast_location_created">The location \'%s\' has been created</string>
+    <string name="toast_location_modified">Your changes to the location \'%s\' has been saved</string>
+    <string name="toast_location_removed">The location \'%s\' has been removed</string>
+
+    <!-- edit location -->
+    <string name="label_type_location">Type in a location</string>
+    <string name="find_location">Find</string>
 </resources>

@@ -2,72 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-              android:orientation="vertical"
-             >
-    <LinearLayout
-            xmlns:android = "http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_edges"
-            >
+              android:orientation="vertical">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@drawable/rounded_edges"
+                  android:paddingBottom="10px">
 
         <TextView android:id="@+id/userSelectedLocation"
                   android:text="Current Location"
                   android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
-                  />
+                />
     </LinearLayout>
 
-    <ScrollView
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent"
-            android:layout_weight="1"
-            android:paddingTop="10px">
-        <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-=
-           <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/darker_gray"
-                >
-                        <EditText android:id="@+id/searchTextBoxForLocation"
-                        android:layout_width="250px"
-                        android:layout_height="wrap_content"
-                                android:text="Type in a location"/>
-                        <Button android:id="@+id/searchLocationButton"
-                                android:layout_width="50px"
-                                android:layout_height="wrap_content"
-                                android:text="Find"/>
-            </LinearLayout>
-            <LinearLayout
+    <LinearLayout android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
                     android:background="@android:color/darker_gray">
-                <ListView
-                                android:id="@+id/searchResultsList"
-                                android:layout_width="fill_parent"
-                                android:layout_height="fill_parent"
-                                />
-           </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
 
+        <EditText android:id="@+id/searchTextBoxForLocation"
+                  android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:layout_weight="1"
+                  android:hint="@string/label_type_location"
+                />
+        <Button android:id="@+id/searchLocationButton"
+                android:layout_width="50dip"
+                android:layout_height="wrap_content"
+                android:text="@string/find_location"
+                />
+    </LinearLayout>
 
-    <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:orientation="horizontal">
-        <Button
-                android:id="@+id/save_location"
+    <ListView android:id="@+id/searchResultsList"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:scrollbars="vertical"
+              android:layout_weight="1"
+            />
+    <LinearLayout android:layout_height="wrap_content"
+                  android:layout_width="fill_parent"
+                  android:orientation="horizontal">
+
+        <Button android:id="@+id/save_location"
                 android:text="@string/save"
-                style="@style/button_row"/>
-        <Button
-                android:id="@+id/cancel_location"
+                style="@style/button_row"
+                />
+        <Button android:id="@+id/cancel_location"
                 android:text="@string/cancel"
                 android:layout_toRightOf="@id/save_location"
-                style="@style/button_row"/>
+                style="@style/button_row"
+                />
     </LinearLayout>
 </LinearLayout>
