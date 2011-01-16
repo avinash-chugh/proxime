@@ -61,6 +61,7 @@ public class EditLocation extends Activity {
         if (requestCode == MAP_REQUEST_CODE) {
             double latitude = data.getDoubleExtra("latitude", 0);
             double longitude = data.getDoubleExtra("longitude", 0);
+            location.setAddress(data.getStringExtra("formattedAddress"));
             location.setLatitude(latitude);
             location.setLongitude(longitude);
 
