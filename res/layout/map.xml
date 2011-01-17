@@ -5,6 +5,7 @@
      android:layout_width="fill_parent"
      android:layout_height="fill_parent"
      android:orientation="vertical"
+     android:background="@android:color/background_dark"
      >
 
 
@@ -13,14 +14,16 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/background_light"
+    android:background="@drawable/milestone_marker"
+    android:layout_margin="5px"
 >
 
     <Button
         android:id="@+id/setLocationFromMap"
         android:text="Set Location"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_marginTop="2px"
             />
     <TextView
         android:id="@+id/refinedSearch"
@@ -28,7 +31,8 @@
         android:layout_height="fill_parent"
         android:layout_width="wrap_content"
         android:layout_weight="1"
-        android:paddingLeft="10px"/>
+        android:paddingLeft="10px"
+        android:textColor="#FFFFFF"/>
 
 </LinearLayout>
 
