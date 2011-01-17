@@ -35,6 +35,8 @@ Known Issues
 
 * Clicking on a location takes you back to the Events list UI
 * You can create an event without entering any details
+* The Locations UI hangs when the phone/emulator is without access to the Internet
+* The app should warn you upfront if you are offline, and should give you the chance to fix it
 
 Licensing
 ---------
