@@ -14,8 +14,8 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/milestone_marker"
-    android:layout_margin="5px"
+    android:background="@drawable/black_rectangular_background"
+    android:layout_margin="3px"
 >
 
     <Button

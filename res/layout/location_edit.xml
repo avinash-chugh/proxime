@@ -44,7 +44,10 @@
 
     <LinearLayout android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
-                    android:background="@android:color/darker_gray"
+                    android:background="@drawable/black_rectangular_background"
+                    android:paddingLeft="5px"
+                    android:paddingBottom="7px"
+                    android:paddingRight="1px"
                     android:paddingTop="10px">
 
         <EditText android:id="@+id/searchTextBoxForLocation"
