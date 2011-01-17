@@ -26,8 +26,9 @@ Building Proxime
 ----------------
 
 In the absence of any build targets, you can simply clone the repository from
-https://github.com/avinash-chugh/proxime and point to the Intellij project. You will probably need to set up a run configuration and an Android Virtual Device 
-that will host the application.
+https://github.com/avinash-chugh/proxime and point to the Intellij project. 
+You will probably need to set up a run configuration and an Android Virtual 
+Device that will host the application.
 
 Known Issues
 ------------
