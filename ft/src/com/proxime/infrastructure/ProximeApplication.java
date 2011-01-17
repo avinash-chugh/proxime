@@ -43,4 +43,8 @@ public class ProximeApplication {
         }
         activity.finish();
     }
+
+    public NewLocationActivity getNewLocationActivity() {
+         return new NewLocationActivity(solo);
+    }
 }

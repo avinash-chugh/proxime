@@ -3,11 +3,7 @@ package com.proxime.tests;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.Smoke;
 import com.proxime.activities.Events;
-import com.proxime.infrastructure.EditLocationActivity;
-import com.proxime.infrastructure.EventsActivity;
-import com.proxime.infrastructure.LocationsActivity;
-import com.proxime.infrastructure.EditEventActivity;
-import com.proxime.infrastructure.ProximeApplication;
+import com.proxime.infrastructure.*;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -54,11 +50,11 @@ public class ProximeTest extends ActivityInstrumentationTestCase2<Events> {
         int previousCount = locationsActivity.getLocationsCount();
         locationsActivity.addNewLocation();
 
-        EditLocationActivity editLocationActivity = application.getEditLocationActivity();
+        NewLocationActivity newLocationActivity = application.getNewLocationActivity();
         String locationName = newLocation();
-        editLocationActivity.setLocationName(locationName);
-        editLocationActivity.setLocationSpan(10);
-        editLocationActivity.save();
+        newLocationActivity.setLocationName(locationName);
+        newLocationActivity.save();
+
 
         locationsActivity = application.getLocationsActivity();
         assertThat(locationsActivity.getLocationsCount(), is(equalTo(previousCount + 1)));

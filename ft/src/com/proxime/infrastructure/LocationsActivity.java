@@ -35,4 +35,5 @@ public class LocationsActivity {
         Location itemAtPosition = (Location) listView.getItemAtPosition(locationsCount - 1);
         return itemAtPosition.getName();
     }
+
 }
