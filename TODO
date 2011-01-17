@@ -1,0 +1,9 @@
+TODO's:
+
+* Exhaustive set of unit-tests (Robolectric) and functional tests (Robotium)
+* Use an ORM for data-access (ActiveAndroid?)
+* UI-cleanup (theming, externalizing all strings, contact-photos)
+* Tests for the background services
+* Build automation (Ant)
+* Support for continuous integration (Hudson?)
+* Move towards a 'release-candidate' (signing, licenses, api-keys, etc)

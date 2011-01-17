@@ -1,0 +1,49 @@
+Proxime v1.0
+
+What is it?
+-----------
+
+Proxime is an application that runs on the Android platform. Any user that 
+installs this app on their mobile device can setup notifications on reaching 
+a particular destination. The user can pick a destination off a map, or search 
+for a particular address. The user can choose to notify herself, or one of her 
+contacts. Essentially, Proxime lets you set up geo-alerts for you and your 
+loved ones.
+
+Software Prerequisites
+----------------------
+
+Here is the list of software you would need to further contribute to this 
+project:
+
+Java SDK 1.6
+IntelliJ IDEA 10 CE
+Android SDK 2.2 (API 8)
+Google APIs (API 8)
+Git
+
+Building Proxime
+----------------
+
+In the absence of any build targets, you can simply clone the repository from
+https://github.com/avinash-chugh/proxime and point to the Intellij project. You will probably need to set up a run configuration and an Android Virtual Device 
+that will host the application.
+
+Known Issues
+------------
+
+* Clicking on a location takes you back to the Events list UI
+* You can create an event without entering any details
+
+Licensing
+---------
+
+TBD
+
+URLs
+----
+
+https://github.com/avinash-chugh/proxime
+https://github.com/avinash-chugh/proxime/blob/master/README
+https://github.com/avinash-chugh/proxime/blob/master/TODO
+https://github.com/avinash-chugh/proxime/blob/master/NOTICE

@@ -1,0 +1,5 @@
+The NOTICE file credits the third-party software used to build and test Proxime.
+
+Hamcrest (http://code.google.com/p/hamcrest/)
+Robolectric (http://pivotal.github.com/robolectric/)
+Robotium (http://code.google.com/p/robotium/)
