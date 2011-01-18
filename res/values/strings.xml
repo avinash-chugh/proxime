@@ -51,4 +51,5 @@
     <!-- edit location -->
     <string name="label_type_location">Type in a location</string>
     <string name="find_location">Find</string>
+    <string name="not_specified">(Not specified)</string>
 </resources>

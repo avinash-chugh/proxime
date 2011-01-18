@@ -5,23 +5,57 @@
               android:layout_height="fill_parent"
               android:orientation="vertical"
         >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/black_rectangular_background"
+            android:orientation="vertical"
+            android:layout_margin="7px">
     <TextView
             android:text="@string/message_title"
             style="@style/caption"/>
+        </LinearLayout>
     <TextView
             android:id="@+id/view_event_message"
             style="@style/text"
+            android:hint="@string/not_specified"
+            android:layout_marginLeft="5px"
             />
+
+
+
+      <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/black_rectangular_background"
+              android:orientation="vertical"
+              android:layout_margin="7px">
     <TextView
             android:text="@string/contacts_title"
             style="@style/caption"/>
+           </LinearLayout>
     <TextView
             android:id="@+id/view_event_contact"
-            style="@style/text"/>
+            style="@style/text"
+            android:hint="@string/not_specified"
+            android:layout_marginLeft="5px"/>
+
+
+
+    <LinearLayout
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:background="@drawable/black_rectangular_background"
+            android:orientation="vertical"
+            android:layout_margin="7px">
     <TextView
             android:text="@string/locations_title"
             style="@style/caption"/>
+          </LinearLayout>
     <TextView
             android:id="@+id/view_event_location"
-            style="@style/text"/>
+            style="@style/text"
+            android:hint="@string/not_specified"
+            android:layout_marginLeft="5px"/>
+
 </LinearLayout>

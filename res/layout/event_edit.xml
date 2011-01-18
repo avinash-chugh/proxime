@@ -56,6 +56,7 @@
                 <TextView
                         android:id="@+id/edit_event_contacts_title"
                         android:text="@string/contacts_title"
+                        android:hint="@string/not_specified"
                         style="@style/caption"/>
                 <Button
                         android:id="@+id/edit_event_add_contact"
@@ -99,7 +100,7 @@
             <TextView
                     style="@style/text"
                     android:id="@+id/edit_event_location"
-                    android:hint="(Not specified)"/>
+                    android:hint="@string/not_specified"/>
 
             <LinearLayout android:background="@drawable/black_rectangular_background"
                           android:layout_width="fill_parent"
