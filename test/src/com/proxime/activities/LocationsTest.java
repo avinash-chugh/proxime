@@ -3,7 +3,7 @@ package com.proxime.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.widget.Button;
+import android.widget.ImageButton;
 import com.proxime.R;
 import com.xtremelabs.robolectric.RobolectricTestRunner;
 import com.xtremelabs.robolectric.shadows.ShadowActivity;
@@ -17,10 +17,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static com.xtremelabs.robolectric.Robolectric.shadowOf;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 @RunWith(RobolectricTestRunner.class)
@@ -64,7 +61,7 @@ public class LocationsTest {
 
     @Test
     public void canLaunchNewLocationViewOnClickingTheAddButton() {
-        Button button = (Button) locations.findViewById(R.id.createLocationButton);
+        ImageButton button = (ImageButton) locations.findViewById(R.id.createLocationButton);
         assertThat(button, is(not(nullValue())));
 
         button.performClick();

@@ -10,13 +10,9 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Toast;
-import com.proxime.adapters.BaseListAdapter;
+import android.widget.*;
 import com.proxime.R;
+import com.proxime.adapters.BaseListAdapter;
 import com.proxime.entities.Location;
 import com.proxime.repositories.LocationRepository;
 
@@ -54,7 +50,7 @@ public class Locations extends Activity {
     }
 
     private void hookUpEvents() {
-        Button createButton = (Button) findViewById(R.id.createLocationButton);
+        ImageButton createButton = (ImageButton) findViewById(R.id.createLocationButton);
         createButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 showLocationDialog();

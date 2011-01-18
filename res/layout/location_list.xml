@@ -3,13 +3,18 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
+              android:paddingTop="5px"
         >
     <RelativeLayout android:layout_height="wrap_content"
-                    android:layout_width="fill_parent">
-        <Button android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    >
+        <ImageButton android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="(+)"
-                android:id="@+id/createLocationButton"/>
+                android:text=""
+                android:id="@+id/createLocationButton"
+                android:src="@drawable/add"
+               android:layout_marginBottom="1px"/>
+
         <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -18,7 +23,14 @@
                 android:id="@+id/search_location"
                 />
     </RelativeLayout>
+    <LinearLayout android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:orientation="vertical"
+                  android:background="@drawable/list_background_white">
     <ListView android:layout_height="wrap_content"
               android:layout_width="fill_parent"
-              android:id="@+id/locationsList"/>
+              android:id="@+id/locationsList"
+               android:divider="#333333"
+               android:dividerHeight="1px" />
+        </LinearLayout>
 </LinearLayout>
