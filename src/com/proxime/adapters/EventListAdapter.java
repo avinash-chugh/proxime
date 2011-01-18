@@ -62,4 +62,6 @@ public class EventListAdapter extends BaseListAdapter<Event> {
         TextView contact;
         TextView contactLabel;
     }
+
+
 }

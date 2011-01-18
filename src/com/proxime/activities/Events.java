@@ -12,11 +12,7 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.*;
 import com.proxime.R;
 import com.proxime.adapters.EventListAdapter;
 import com.proxime.entities.Event;
@@ -92,7 +88,7 @@ public class Events extends Activity {
     }
 
     private void hookUpListeners() {
-        Button createButton = (Button) findViewById(R.id.createButton);
+        ImageButton createButton = (ImageButton) findViewById(R.id.createButton);
         createButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 newEvent();
