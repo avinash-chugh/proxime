@@ -36,7 +36,7 @@
         <item name="android:paddingRight">5dip</item>
         <item name="android:paddingTop">5dip</item>
         <item name="android:paddingBottom">5dip</item>
-        <item name="android:background">#FFAAAAAA</item>
+        <item name="android:textColor">#FFFFFF</item>
     </style>
 
     <style name="horizontal_line">
