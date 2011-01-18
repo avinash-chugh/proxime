@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+         android:orientation="vertical"
+        android:paddingTop="5px"
+        android:paddingBottom="5px">
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/list_item_location_name"
+        style="@style/text"/>
+
+<TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/list_item_location_address"
+        style="@style/smalltext.italic"
+        android:hint="(Long touch to set address)"
+        />
+</LinearLayout>

@@ -49,13 +49,18 @@ public class LocationRepository implements ColumnNames{
 
     public List<Location> loadAll() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor cursor = db.query(CustomDBHelper.LOCATIONS_TABLE, new String[]{ID, NAME}, null, null, null, null, null);
+        Cursor cursor = db.query(CustomDBHelper.LOCATIONS_TABLE, new String[]{ID, NAME,ADDRESS,LATITUDE,LONGITUDE,SPAN,ADDRESS}, null, null, null, null, null);
         List<Location> result = new ArrayList<Location>();
         while(cursor.moveToNext())
         {
-            String name = cursor.getString(cursor.getColumnIndexOrThrow(NAME));
             int id = cursor.getInt(cursor.getColumnIndexOrThrow(ID));
-            result.add(new Location(id, name));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(NAME));
+            int span = cursor.getInt(cursor.getColumnIndexOrThrow(SPAN));
+            double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(LATITUDE));
+            double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(LONGITUDE));
+            String address = cursor.getString(cursor.getColumnIndexOrThrow(ADDRESS));
+
+            result.add(new Location(id, name,latitude,longitude,span,address));
         }
         cursor.close();
         db.close();

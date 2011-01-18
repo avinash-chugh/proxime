@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.*;
 import com.proxime.R;
 import com.proxime.adapters.BaseListAdapter;
+import com.proxime.adapters.LocationListAdapter;
 import com.proxime.entities.Location;
 import com.proxime.repositories.LocationRepository;
 
@@ -45,7 +46,7 @@ public class Locations extends Activity {
         List<Location> locations = locationRepository.loadAll();
         locationsView = (ListView) findViewById(R.id.locationsList);
         locationsView.setTextFilterEnabled(true);
-        adapter = new BaseListAdapter<Location>(this, locations);
+        adapter = new LocationListAdapter(this, locations);
         locationsView.setAdapter(adapter);
     }
 
@@ -59,7 +60,7 @@ public class Locations extends Activity {
 
         locationsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                long id = ((BaseListAdapter.ViewHolder) view.getTag()).id;
+                long id = ((LocationListAdapter.LocationViewHolder) view.getTag()).id;
                 setResult(RESULT_OK, new Intent().putExtra("location", locationRepository.load(id)));
                 finish();
             }
