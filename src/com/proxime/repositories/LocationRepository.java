@@ -49,7 +49,7 @@ public class LocationRepository implements ColumnNames{
 
     public List<Location> loadAll() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor cursor = db.query(CustomDBHelper.LOCATIONS_TABLE, new String[]{ID, NAME,ADDRESS,LATITUDE,LONGITUDE,SPAN,ADDRESS}, null, null, null, null, null);
+        Cursor cursor = db.query(CustomDBHelper.LOCATIONS_TABLE, new String[]{ID, NAME,ADDRESS,LATITUDE,LONGITUDE,SPAN}, null, null, null, null, null);
         List<Location> result = new ArrayList<Location>();
         while(cursor.moveToNext())
         {
