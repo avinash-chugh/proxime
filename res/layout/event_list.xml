@@ -26,7 +26,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/list_background_white">
+        android:background="@drawable/list_background_black">
     <ListView android:layout_height="fill_parent"
               android:layout_width="fill_parent"
               android:id="@+id/eventsList"/>
