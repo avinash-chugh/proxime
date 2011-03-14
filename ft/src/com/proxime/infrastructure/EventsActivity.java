@@ -25,7 +25,7 @@ public class EventsActivity {
     }
 
     public void addNewEvent() {
-        solo.clickOnButton(0);
+        solo.clickOnImageButton(0);
     }
 
     public String getLastEventName() {

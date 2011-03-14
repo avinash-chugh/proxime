@@ -25,7 +25,7 @@ public class LocationsActivity {
     }
 
     public void addNewLocation() {
-        solo.clickOnButton(0);
+        solo.clickOnImageButton(0);
     }
 
     public String getLastLocationName() {
