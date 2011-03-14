@@ -64,7 +64,7 @@ public class EventsTest {
 
     @Test
     public void canLaunchNewEventViewOnClickingTheAddButton() {
-        Button button = (Button) events.findViewById(R.id.createButton);
+        android.widget.ImageButton button = (android.widget.ImageButton) events.findViewById(R.id.createButton);
         assertThat(button, is(not(nullValue())));
 
         button.performClick();

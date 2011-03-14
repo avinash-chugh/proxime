@@ -56,7 +56,8 @@ public class LocationsTest {
     @Test
     public void canLaunchNewLocationView() {
         locations.onOptionsItemSelected(menu.getItem(1));
-        assertNextActivity(EditLocation.class);
+        ShadowActivity activity = shadowOf(locations);
+        assertThat(activity.getNextDialog(),is(equalTo(R.id.add_location)));
     }
 
     @Test
@@ -65,7 +66,8 @@ public class LocationsTest {
         assertThat(button, is(not(nullValue())));
 
         button.performClick();
-        assertNextActivity(EditLocation.class);
+        ShadowActivity activity = shadowOf(locations);
+        assertThat(activity.getNextDialog(),is(equalTo(R.id.add_location)));
     }
 
     @Test
