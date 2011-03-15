@@ -51,7 +51,7 @@ public class NotifyProximityCommand implements Command {
         Notification notification = new Notification(R.drawable.alert, "Proxime", System.currentTimeMillis());
         PendingIntent pendingIntent = PendingIntent.getService(context, 23, new Intent(context, LocationTracker.class).putExtra("action", "log"), 0);
         notification.setLatestEventInfo(context, "Proxime", message, pendingIntent);
-        notification.defaults |= Notification.DEFAULT_ALL;
+        notification.defaults |= Notification.DEFAULT_SOUND;
         notificationManager.notify(1, notification);
     }
 
